@@ -1,0 +1,101 @@
+[
+  {
+    "title": "Máscara de pestañas Maybelline",
+    "description": "Máscara de pestañas Sky High",
+    "price": 5040,
+    "thumbnail": "Sin imagen",
+    "code": "001",
+    "stock": 25,
+    "id": 0
+  },
+  {
+    "title": "Rubor Maybelline",
+    "description": "Rubor Fit Me Blush 50 Wine Maybelline",
+    "price": 3100,
+    "thumbnail": "Sin imagen",
+    "code": "002",
+    "stock": 16,
+    "id": 1
+  },
+  {
+    "title": "Máscara de pestañas L'oréal París",
+    "description": "Máscara de pestañas L'oréal París Paradise Extatic Wtpf",
+    "price": 290,
+    "thumbnail": "Sin imagen",
+    "code": "003",
+    "stock": 15,
+    "id": 2
+  },
+  {
+    "title": "Iluminador en polvo L'oreal",
+    "description": "Iluminador en polvo L'oreal Icoconic Glow Nude Glow De Coco",
+    "price": 4345,
+    "thumbnail": "Sin imagen",
+    "code": "004",
+    "stock": 5,
+    "id": 3
+  },
+  {
+    "title": "Base de maquillaje en polvo L'Oréal Paris",
+    "description": "Base de maquillaje en polvo L'Oréal Paris Infaillible 24 hs Fresh wear Base en polvo tono 180 rose sand ",
+    "price": 7890,
+    "thumbnail": "Sin imagen",
+    "code": "005",
+    "stock": 10,
+    "id": 4
+  },
+  {
+    "title": "Delineador de ojos en gel L'Oréal Paris",
+    "description": " Delineador de ojos en gel L'Oréal Paris Super Liner Gel Intenza color negro con acabado mate",
+    "price": 3400,
+    "thumbnail": "Sin imagen",
+    "code": "006",
+    "stock": 20,
+    "id": 5
+  },
+  {
+    "title": "Labial líquido Rimmel",
+    "description": "Labial líquido Rimmel Provocalips 16hs Lock Shine",
+    "price": 3560,
+    "thumbnail": "Sin imagen",
+    "code": "007",
+    "stock": 30,
+    "id": 6
+  },
+  {
+    "title": "Base de maquillaje Rimmel",
+    "description": "Base de maquillaje Rimmel Lasting Finish Matte Foundation",
+    "price": 4780,
+    "thumbnail": "Sin imagen",
+    "code": "008",
+    "stock": 2,
+    "id": 7
+  },
+  {
+    "title": "Máscara de pestañas Rimmel",
+    "description": "Máscara de pestañas Rimmel Wonder extension Mascara",
+    "price": 5050,
+    "thumbnail": "Sin imagen",
+    "code": "009",
+    "stock": 14,
+    "id": 8
+  },
+  {
+    "title": "Delineador de ojos en gel Maybelline",
+    "description": "Delineador de ojos en gel Maybelline Eyestudio Lasting Drama Gel Liner color blackest black",
+    "price": 870,
+    "thumbnail": "Sin imagen",
+    "code": "010",
+    "stock": 7,
+    "id": 9
+  },
+  {
+    "title": "Delineador de ojos líquido Maybelline",
+    "description": "Delineador de ojos líquido Maybelline Liner Express Liquid Eyeliner color negro",
+    "price": 1400,
+    "thumbnail": "Sin imagen",
+    "code": "011",
+    "stock": 5,
+    "id": 10
+  }
+]
