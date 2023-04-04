@@ -97,5 +97,27 @@
     "code": "011",
     "stock": 5,
     "id": 10
+  },
+  {
+    "title": "Delieador de ojos líquido Maybelline",
+    "description": "Delineador de ojos líquido Maybelline Liner Express Liquid Eyeliner color negro\"",
+    "price": "1400",
+    "code": "5555",
+    "stock": "5",
+    "category": "pepe",
+    "thumbnail": "http://localhost:8084/img/pepe.jpeg",
+    "status": true,
+    "id": 11
+  },
+  {
+    "title": "Delieador de ojos líquido Maybelline",
+    "description": "Delineador de ojos líquido Maybelline Liner Express Liquid Eyeliner color negro\"",
+    "price": "1400",
+    "code": "55555",
+    "stock": "5",
+    "category": "pepe",
+    "thumbnail": "http://localhost:8084/img/pepe.jpeg",
+    "status": true,
+    "id": 12
   }
 ]

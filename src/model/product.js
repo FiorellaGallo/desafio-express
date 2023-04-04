@@ -5,7 +5,7 @@ class ProductManager {
   static id = 1;
 
   constructor() {
-    this.path = "./products.json";
+    this.path = "./data/products.json";
   }
 
   async loadData() {
@@ -47,7 +47,10 @@ class ProductManager {
 
     if (!newProduct.stock) throw Error("Empty stock field");
 
-    this.products.push({ ...newProduct, id: ProductManager.id++ });
+    if (!newProduct.category || newProduct.category.trim().length === 0)
+      throw Error("Empty category field");
+
+    this.products.push({ ...newProduct,status:true, id: ProductManager.id++ });
 
     await fs.writeFile(this.path, JSON.stringify(this.products));
   }
@@ -59,7 +62,6 @@ class ProductManager {
       const productExist = productsParsed.find(
         (product) => product?.id === idProduct
       );
-      console.log(productExist)
       return productExist;
     } catch (error) {
       console.log(error);
@@ -67,11 +69,11 @@ class ProductManager {
     }
   }
 
-  async updateProduct(productChange) {
-    const product = await this.getProductById(productChange.id);
+  async updateProduct(productChange,id) {
+    const product = await this.getProductById(id);
     if (!product) throw new Error("This product no exist");
 
-    const {title,description,thumbnail,price,code,stock} = productChange;
+    const {title,description,thumbnail,price,code,stock,category,status} = productChange;
 
     if (title) product.title = title;
     if (description) product.description = description;
@@ -79,6 +81,8 @@ class ProductManager {
     if (thumbnail) product.thumbnail = thumbnail;
     if (code) product.code = code;
     if (stock) product.stock = stock;
+    if (category) product.category = category;
+    if (status) product.status = status;
 
     this.products[product.id] = product;
 
@@ -91,40 +95,5 @@ class ProductManager {
     await fs.writeFile(this.path, JSON.stringify(this.products));
   }
 }
-/*
-const main = async () => {
-  const listProducts = new ProductManager();
 
-  console.log(await listProducts.getProducts());
-
-  await listProducts.loadData();
-
-  await listProducts.addProduct({
-    title: "Crema para peinar Panten",
-    description: "Crema para peinar pelo rizo",
-    price: 290,
-    thumbnail: "Sin imagen",
-    code: "003",
-    stock: 25,
-  });
-
-  
-  console.log(await listProducts.getProducts());
-
-  console.log(await listProducts.getProductById(0));
-
-  console.log(
-    await listProducts.updateProduct({
-      id: 0,
-      title: "nuevo titulo",
-      description: "nueva descripcion",
-      price: 450,
-    })
-  );
-
-  await listProducts.deleteProduct(0);
-    
-};
-main();
-*/
 export default ProductManager;
