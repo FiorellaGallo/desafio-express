@@ -28,8 +28,9 @@ router.post('/add',uploader.single('file'), async(req,res) =>{
         return res.status(400).send({status:"error",error:"Could not save image"})
     }
     const data = req.body;
+    console.log(req.body);
     if(!data) return res.status(404).send("No product");
-    const img = `http://localhost:8084/${req.file.path.replace('public/','')}`;
+    const img = `http://localhost:8082/${req.file.path.replace('public/','')}`;
     await productManager.loadData();
     data.thumbnail = img;
     const product = await productManager.addProduct(data);

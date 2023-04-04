@@ -7,26 +7,16 @@ const productManager = new ProductManager();
 const cartManager = new CartManager();
 
 router.post('/', async (req, res) => {
-    
-    // Recibimos productos por parte del cliente/postman
     const { products } = req.body;
-
-    // actualizamos nuestros objetos con la base de datos (.json)
     await cartManager.loadData();
     await productManager.loadData();
 
-    // Verificar si son productos válidos
     for (const product of products) {
         const existProduct = await productManager.getProductById(Number(product.id));
         if (!existProduct) return res.status(404).send(`Product no exist id: ${product.id}`)
     }
-    
-    // Genera un carrito con los productos recibidos
     await cartManager.addCart(products);
     res.status(202).send("Cart created successfully");
-
-    
-
 })
 
 router.get('/:cid', async (req, res) => {
@@ -60,8 +50,7 @@ router.post('/:cid/product/:pid', async (req,res) =>{
         }) 
 
         cartId.products = newProductCart;
-    }
-    
+    } 
     await cartManager.loadData()
     await cartManager.updateCart(cartId)
     res.send(cartId);
