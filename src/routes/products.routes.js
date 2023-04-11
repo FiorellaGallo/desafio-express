@@ -21,7 +21,7 @@ router.get('/:pid', async(req,res)=>{
     res.send(productId)
 })
 
-router.post('/add',uploader.single('file'), async(req,res) =>{
+router.post('/add',uploader.single('thumbnail'), async(req,res) =>{
    //Los datos del producto fueron pasados por form-data. 
   try {
     if(!req.file){
@@ -34,7 +34,8 @@ router.post('/add',uploader.single('file'), async(req,res) =>{
     await productManager.loadData();
     data.thumbnail = img;
     const product = await productManager.addProduct(data);
-    res.send(product);
+    const productShow = data;
+    res.send({productShow, message: "Cargado con éxito"});
 
    } catch (error) {
     res.status(404).send(error.message)

@@ -1,0 +1,15 @@
+<div>
+  <ol style="display: flex; flex-wrap: wrap;">
+    {{#each elementos}}
+      <div class="card" style="width: 18rem; margin:2rem; display: flex;
+    align-items: center;">
+        <img src={{this.thumbnail}} class="card-img-top" alt="..." style="width: 70%" />
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <p class="card-text">{{this.description}}</p>
+          
+        </div>
+      </div>
+    {{/each}}
+  </ol>
+</div>
