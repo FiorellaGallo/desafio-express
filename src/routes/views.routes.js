@@ -1,9 +1,10 @@
 import express from "express";
-import ProductManager from "../model/product.js";
+import ProductManager from "../managers/product.js";
 
 
 const router = express.Router();
 const productManager = new ProductManager();
+
 
 router.get('/', async(req, res)=>{
     const products = await productManager.getProducts();

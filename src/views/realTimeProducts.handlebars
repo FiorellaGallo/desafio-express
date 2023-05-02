@@ -1,55 +1,54 @@
 <div>
-   
-  <ol id="list" style="display: flex; flex-wrap: wrap;">
+  <ol id="list">
     {{#each elementos}}
     {{#if this}}
-   
-    <div class="card" style="width: 18rem; margin:2rem; " >
-        <img src={{this.thumbnail}} class="card-img-top" alt="..." style="width: 70%" />
+    <div class="card" style="width: 18rem;">
+        <img src={{this.thumbnail}} class="card-img-top" alt="..."/>
         <div class="card-body">
           <h5 class="card-title">{{this.title}}</h5>
           <p class="card-text">{{this.description}}</p>
           
         </div>
       </div>
-      
     {{/if}}
     {{/each}}
   </ol>
 
-  <form id="delete" action="" style="display: flex; flex-direction:row ; width: 60%; margin-left: 20%; margin-bottom:4rem;margin-top:3rem; border-radius:10rem;">
-    <label for="texto">ID del producto a eliminar</label>
-    <input type="text" class="form-control text-bg-tertiary p-1" id="id" name="id" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-  </form>
-    
-  <form id="create" action="" style="display: flex; flex-direction: column ; width: 60%; margin-left: 20%;">
-    <h4 style="text-align: center;">Fomulario para crear un producto</h4>
-    <label for="texto">Título</label>
-    <input type="text" class="form-control" id="title" name="title" />
 
-    <label for="texto">Descripción</label>
-    <input type="text" class="form-control" id="description" name="description" />
+  <form id="delete" action="">
+    <label for="texto">ID del producto a eliminar</label>
+    <input type="text" id="id" name="id" />
+    <button type="submit">Eliminar</button>
+  </form>
+
+  <form id="create" action="">
+    <label for="texto">Titulo</label>
+    <input type="text" id="title" name="title" />
+
+    <label for="texto">Descripcion</label>
+    <input type="text" id="description" name="description" />
 
     <label for="texto">Precio</label>
-    <input type="text" class="form-control" id="price" name="price" />
+    <input type="text" id="price" name="price" />
 
-    <label for="texto">Imágen</label>
-    <input type="text" class="form-control" id="thumbnail" name="thumbnail" />
+    <label for="texto">Thumbnail</label>
+    <input type="text" id="thumbnail" name="thumbnail" />
 
-    <label for="texto">Código</label>
-    <input type="text" class="form-control" id="category" name="category" />
+    <label for="texto">Codigo</label>
+    <input type="text" id="category" name="category" />
 
-    <label for="texto">Categoria</label>
-    <input type="text" class="form-control" id="code" name="code" />
+    <label for="texto">Category</label>
+    <input type="text" id="code" name="code" />
 
     <label for="texto">Stock</label>
-    <input type="text" class="form-control" id="stock" name="stock" />
+    <input type="text" id="stock" name="stock" />
 
-    <button type="submit" class="btn btn-success" style="margin-bottom: 5rem;">Crear</button>
+    <button type="submit">Crear</button>
   </form>
 
+
 </div>
+
 
 
 <script src="/socket.io/socket.io.js"></script>
@@ -95,7 +94,7 @@
     let listProducts = '';
 
     data.map((item) => {
-      if (item) listProducts += `<div class="card" style="width: 18rem; margin:2rem;"><img src=${item.thumbnail} class="card-img-top" alt="..." style="width: 70%" /><div class="card-body"><h5>Nombre: ${item.title}</h5><p>Descripción: ${item.description}</p></div></div><br>`;
+      if (item) listProducts += `<div>Nombre: ${item.title}</div><div>Descripción: ${item.description}</div><br>`;
     })
     list.innerHTML = listProducts;
   })
@@ -105,7 +104,7 @@
     let listProducts = '';
 
     data.map((item) => {
-      if (item) listProducts += `<div class="card" style="width: 18rem; margin:2rem;"><img src=${item.thumbnail} class="card-img-top" alt="..." style="width: 70%" /><div class="card-body"><h5>Nombre: ${item.title}</h5><p>Descripción: ${item.description}</p></div></div><br>`;
+      if (item) listProducts += `<div>Nombre: ${item.title}</div><div>Descripción: ${item.description}</div><br>`;
     })
     list.innerHTML = listProducts;
 
