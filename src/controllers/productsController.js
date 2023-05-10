@@ -6,12 +6,23 @@ export const getAllProducts = ("/", async (req, res) => {
   
     const productManager = new ProductManager();
 
-    const productos = await productManager.getProducts();
-    const limit = req.query.limit;
-    if (limit && limit > 0) {
-      return res.send(productos.slice(0, limit));
+    const limit = req.query.limit ? Number(req.query.limit) :  10;
+    const type = req.query.type ;
+    const sortOrder = req.query.sortOrder ? Number(req.query.sortOrder) : null;
+    const stock = req.query.stock ? Number(req.query.stock) : 0 ;
+
+    const productsFilted = await productManager.getProducts(type,sortOrder,limit,stock)
+    
+    if (productsFilted.length === 0) {
+      return res.status(400).send({ status: "error" })
     }
-    res.send(productos);
+    else{
+      res.send({
+        status: "success",
+        payload: productsFilted
+      });
+
+    }
   
 });
 

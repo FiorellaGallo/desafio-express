@@ -7,7 +7,7 @@
         <div class="card-body">
           <h5 class="card-title">{{this.title}}</h5>
           <p class="card-text">{{this.description}}</p>
-          
+          <button onclick="deleteProductById(event)" data-id="{{this._id}}"   >Eliminar</button>  
         </div>
       </div>
     {{/if}}
@@ -21,29 +21,30 @@
     <button type="submit">Eliminar</button>
   </form>
 
-  <form id="create" action="">
+  <form id="create" action="" style="display:flex; flex-direction: colum; width:60%; margin-left:20%;">
+   <h4 style:"text-aling: center;" >Formulario para crear productos</h4>
     <label for="texto">Titulo</label>
-    <input type="text" id="title" name="title" />
+    <input type="text" class="form-control" id="title" name="title" />
 
     <label for="texto">Descripcion</label>
-    <input type="text" id="description" name="description" />
+    <input type="text" class="form-control"  id="description" name="description" />
 
     <label for="texto">Precio</label>
-    <input type="text" id="price" name="price" />
+    <input type="number" class="form-control"  id="price" name="price" />
 
     <label for="texto">Thumbnail</label>
-    <input type="text" id="thumbnail" name="thumbnail" />
+    <input type="file"class="form-control"  id="thumbnail" name="thumbnail" />
 
     <label for="texto">Codigo</label>
-    <input type="text" id="category" name="category" />
+    <input type="text" class="form-control"  id="category" name="category" />
 
     <label for="texto">Category</label>
-    <input type="text" id="code" name="code" />
+    <input type="text" class="form-control"  id="code" name="code" />
 
     <label for="texto">Stock</label>
-    <input type="text" id="stock" name="stock" />
+    <input type="number" class="form-control"  id="stock" name="stock" />
 
-    <button type="submit">Crear</button>
+    <button type="submit" class="btn btn-success" style="margin-bottom: 5rem;">Crear</button>
   </form>
 
 
@@ -76,6 +77,11 @@
 
   })
 
+
+    const deleteProductById = (event)=>{
+       const id = event.target.dataset.id;
+       socket.emit('delete', id)
+    }
 
   const formDelete = document.getElementById('delete')
 

@@ -5,13 +5,13 @@ const productCollection = 'products'
 
 const productSchema = new mongoose.Schema({
 
-    title: String,
-    description: String,
-    price: Number,
-    thumbnail: String,
-    code: String,
-    stock: Number,
-    category: String
+    title: {type:String},
+    description: {type:String},
+    price:{type:Number},
+    thumbnail: {type:String},
+    code: {type:String},
+    stock: {type:Number},
+    category: {type:String}
    
 })
 

@@ -11,14 +11,17 @@ console.log(products);
   //await productManager.loadData();
 
     if (!products) await cartManager.addCart([]);
+
+    const existProducts = [];
     // Verificar si son productos válidos
     for (const product of products) {
         const existProduct = await productManager.getProductById(String(product.id));
-       if (!existProduct) return res.status(404).send(`Product no exist id: ${product.id}`)
+       if (existProduct) existProducts.push(product)
+      else return res.status(404).send(`Product no exist id: ${product.id}`)
     }
     
     // Genera un carrito con los productos recibidos
-    const newCart = await cartManager.addCart(products);
+    const newCart = await cartManager.addCart(existProducts);
 
     res.status(202).send(newCart);
 //,"Cart created successfully"
@@ -52,17 +55,76 @@ export const updateCart = ("/:cid/product/:pid", async (req, res) => {
     const validateProduct = await productManager.getProductById(pid);
     if (!validateProduct) return res.status(404).send("Product no exist");
     cartId.products.push({ id: pid, quantity: 1 });
-  } else {
-    const newProductCart = cartId.products.map((item) => {
-      if (item.id === pid) {
-        item.quantity++;
-      }
-      return item;
-    });
+  } 
 
-    cartId.products = newProductCart;
-  }
-
-  await cartManager.updateCart(cid,cartId);
-  res.send(cartId);
+  const updatedCart = await cartManager.updateCart(cid,cartId);
+  res.send(updatedCart);
 });
+
+export const deleteProduct =
+  ("/:cid/product/:pid",
+  async (req, res) => {
+    const cartManager = new CartManager();
+
+    const cid = String(req.params.cid);
+    const pid = String(req.params.pid);
+
+    const cart = await cartManager.getCartById(cid);
+    console.log(cart.products);
+
+    const productCart = cart.products.find((product) => product?.product._id.toString() === pid);
+    if (!productCart) return res.status(404).send("Product no exist");
+
+    await cartManager.deleteOneProduct(cid,pid);
+    res.send(productCart);
+  });
+
+export const deleteAllProducts =
+  ("/:cid",
+  async (req, res) => {
+    const cartManager = new CartManager();
+
+    const cid = String(req.params.cid);
+
+    const cart = await cartManager.getCartById(cid);
+    
+    if (!cart) return res.status(404).send("Cart no exist");
+
+    await cartManager.deleteProducts(cid);
+    res.send(cart);
+  });
+
+  export const updateAllProducts = ("/:cid",
+  async (req, res) => {
+    const cartManager = new CartManager();
+
+    const cid = String(req.params.cid);
+    const {products} = req.body
+    console.log(products);
+    const cart = await cartManager.getCartById(cid)
+    if (!cart) return res.status(404).send("Cart no exist")
+
+    const newCart = await cartManager.changeAllProducts(cid,products);
+
+    res.send(newCart);
+  })
+
+export const updateQuantity = ("/:cid/products/:pid",
+    async (req, res) => {
+    const cartManager = new CartManager();
+   
+    const {quantity} = req.body
+    const cid = String(req.params.cid);
+    const pid = String(req.params.pid);
+
+    const cart = await cartManager.getCartById(cid)
+   
+    if (!cart) return res.status(404).send("Cart no exist")
+    const productCart = cart.products.find((product) => product?.product._id.toString() === pid)
+    if (!productCart) return res.status(404).send("Product no exist in the cart")
+    
+    const newQuantity = await cartManager.changeQuantity(cid,pid,quantity)
+
+    res.send(newQuantity);
+
+  });

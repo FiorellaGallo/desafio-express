@@ -18,8 +18,8 @@ class ProductManager {
     */
   }
 
-  async getProducts() {
-    const products = await this.productDao.find()
+  async getProducts(type,sortOrder,limit, stock) {
+    const products = await this.productDao.find(type,sortOrder,limit,stock)
     return products;
 
     /* try {

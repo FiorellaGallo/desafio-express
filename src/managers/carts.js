@@ -69,6 +69,24 @@ class CartManager {
     */
    return await this.cartDao.updateCart(id, cart); 
   }
+
+  async deleteOneProduct(cid,pid) {
+    return await this.cartDao.deleteProduct(cid,pid);
+  }
+
+  async deleteProducts(cid) {
+     return await this.cartDao.deleteAllProducts(cid)
+    
+  }
+
+  async changeAllProducts (cid, data) {
+    return await this.cartDao.changeProducts(cid, data)
+  }
+
+  async changeQuantity(cid, pid,quantity ){
+    return await this.cartDao.newQuantity(cid, pid, quantity)
+  }
 }
+
 
 export default CartManager;

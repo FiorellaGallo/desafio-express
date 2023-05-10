@@ -5,12 +5,12 @@ const cartCollection = 'cart'
 const cartSchema = new mongoose.Schema({
 
     products: [
-       {
-        id: { type: String },
-        quantity: { type: Number }
-       }
-    ]
-    
+        {
+          _id: { type: mongoose.Schema.Types.ObjectId,index:true, ref:"products"},
+          quantity: {type:Number}
+        },
+    ],  
+  
 })
 
 export const cartModel = mongoose.model(cartCollection,cartSchema);

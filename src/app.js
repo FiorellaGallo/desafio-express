@@ -10,20 +10,13 @@ import mongoose from 'mongoose';
 
 const productManager = new ProductManager();
 
-
-
-
 const app = express();
 const httpServer = app.listen(8084,() =>console.log("Escuchando..."));
-
 
 
 app.engine('handlebars', handlebars.engine())
 app.set('view engine', 'handlebars');
 app.set('views', __dirname+'/views');
-
-
-
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -48,11 +41,12 @@ socketServer.on('connection', socket =>
   socket.on('delete', async(data) => {
     //await productManager.loadData()
     await productManager.deleteProduct(data)
-    socket.emit('deleteProduct',await productManager.getProducts())
+    console.log(data);
+    socket.emit('deleteProduct',await productManager.getProducts(null,null,10))
   });
 })
 
-mongoose.connect('String de conexión').then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
+mongoose.connect( "Aca va el string de conexión").then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
 
 
 

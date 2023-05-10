@@ -7,7 +7,7 @@ const productManager = new ProductManager();
 
 
 router.get('/', async(req, res)=>{
-    const products = await productManager.getProducts();
+    const products = await productManager.getProducts(null,null,10);
 
     const objetoParaHandlebars = {
         elementos: products
@@ -16,7 +16,8 @@ router.get('/', async(req, res)=>{
 });
 
 router.get('/realtimeproducts',async (req,res)=>{
-    const products = await productManager.getProducts();
+    const products = await productManager.getProducts(null,null,10);
+    console.log(products);
     const objetoParaHandlebars = {
         elementos: products   
     }
