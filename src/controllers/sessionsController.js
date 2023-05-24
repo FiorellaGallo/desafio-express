@@ -1,5 +1,5 @@
 import SessionManager from "../managers/user.js";
-import bcrypt from 'bcrypt';
+import { createHash, generateToken, isValidPassword } from "../utils/index.js";
 
 export const login = async  (req, res) =>{
    
@@ -9,16 +9,14 @@ export const login = async  (req, res) =>{
    
     const manager = new SessionManager();
     const user = await manager.getOneByEmail(email);
-    const isHashedPassword = bcrypt.compare(password, user.password)
+    const isHashedPassword = await isValidPassword(password, user.password);
     const rol = email === 'adminCoder@coder.com' ? "Admin":"Usuario";
 
     if (!isHashedPassword) return res.status(401).send({ message: 'Login failed, invalid password.'})
     
-    req.session.user = { email };
+    const accessToken = await generateToken(user);
     
-     
-
-    res.send({ message: 'Login success!', ...user, password:undefined ,rol});
+    res.send({ accessToken, message: 'Login success!',...user,password:undefined,rol});
 };
 
 export const logout = async (req, res) =>{
@@ -31,13 +29,18 @@ export const logout = async (req, res) =>{
   });
 };
 
+export const current = async  (req, res) =>
+{
+  res.status(200).send({ status: 'Success', payload: req.user });
+};
+
 export const signup = async (req, res) =>
 {
     const manager = new SessionManager();
 
     const payload = {
       ...req.body,
-      password: await bcrypt.hash(req.body.password, 10)
+      password: await createHash(req.body.password, 10)
     }
     console.log(payload);
     const user = await manager.create(payload);

@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import  express  from 'express';
 import productsRouter from './routes/products.routes.js';
 import cartsRouter from './routes/carts.routes.js';
@@ -12,6 +14,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "./routes/sessions.routes.js";
 import userRouter from "./routes/users.routes.js";
+import errorHandler from './middlewares/errorHandler.js';
 
 
 const productManager = new ProductManager();
@@ -22,7 +25,7 @@ const httpServer = app.listen(8084,() =>console.log("Escuchando..."));
 app.use(cookieParser());
 app.use(session({
   store:MongoStore.create({
-    mongoUrl: 'Aca va el string de conexión',
+    mongoUrl: 'String de conexión',
     ttl:15,
   }),
   secret:'1234567',
@@ -63,8 +66,8 @@ socketServer.on('connection', socket =>
     socket.emit('deleteProduct',await productManager.getProducts(null,null,10))
   });
 })
-
-mongoose.connect( 'Aca va el string de conexión').then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
+app.use(errorHandler);
+mongoose.connect( 'String de conexión').then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
 
 
 
