@@ -1,5 +1,7 @@
 import UserMongooseDao from "../dao/userMongooseDao.js";
-
+import userCreateValidation from "../validations/user/userCreateValidation.js";
+import idValidation from "../validations/shared/idValidation.js";
+import userUpdateValidation from "../validations/user/userUpdateValidation.js";
 
 class SessionManager{
     constructor(){
@@ -11,11 +13,14 @@ class SessionManager{
     }
 
     async create(data){
+        await userCreateValidation.parseAsync(data);
         const user = await this.userDao.create(data);
         return{...user, password: undefined};
+
     }
 
     async getOne(id){
+        await idValidation.parseAsync({ id });
         return this.userDao.getOne(id);
     }
 
@@ -24,10 +29,12 @@ class SessionManager{
     }
 
     async updateOne(id, data){
+        await userUpdateValidation.parseAsync({ ...data, id });
         return this.userDao.updateOne(id, data);
     }
 
     async deleteOne(id){
+        await idValidation.parseAsync({ id });
         return this.userDao.deleteOne(id);
     }
 

@@ -10,7 +10,7 @@ const auth = (req, res, next) =>{
     const token = authHeader.split(' ')[1];
 
     jwt.verify(token,process.env.PRIVATE_KEY,(error,credentials) =>{
-        if (error) return res.status(403).send({error: 'Athentication error'});
+        if (error) return res.status(403).send({error: 'Authentication error'});
         req.user = credentials.user;
         next()    
     });

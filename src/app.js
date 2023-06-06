@@ -15,6 +15,7 @@ import MongoStore from "connect-mongo";
 import sessionRouter from "./routes/sessions.routes.js";
 import userRouter from "./routes/users.routes.js";
 import errorHandler from './middlewares/errorHandler.js';
+import roleRouter from "./routes/role.routes.js";
 
 
 const productManager = new ProductManager();
@@ -46,6 +47,7 @@ app.use('/api/sessions', sessionRouter);
 app.use('/api/users', userRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use('/api/roles', roleRouter);
 
 
 const socketServer = new Server(httpServer);

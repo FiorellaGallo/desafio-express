@@ -1,6 +1,8 @@
 import SessionManager from "../managers/user.js";
-import idValidation from "../validations/idValidation.js";
-import userUpdateValidation from "../validations/userUpdateValidation.js";
+import CartManager from "../managers/carts.js";
+import RoleManager from "../managers/role.js";
+
+
 
 export const list = async  (req, res, next) =>{
   try{
@@ -20,8 +22,22 @@ export const list = async  (req, res, next) =>{
 
 export const save = async (req, res, next) =>{
   try{
+    const { cartId ,roleId } = req.body;
     const manager = new SessionManager();
+    const cartManager = new CartManager();
+    const roleManager = new RoleManager();
     const user = await manager.create(req.body);
+
+    if (cartId) {
+      const cart = await cartManager.getCartById(cartId);
+      req.body.cart = cart.id
+    }
+
+    if (roleId) {
+      const role = await roleManager.getOne(roleId); 
+      req.body.role = role.id  
+    }
+    
   
     res.send({ status: 'success', user, message: 'User created.' })
 
@@ -33,7 +49,6 @@ export const save = async (req, res, next) =>{
 
 export const getOne = async (req, res, next) =>{
   try {
-    await idValidation.parseAsync(req.params);
     const { id } = req.params;
     const manager = new SessionManager();
     const user = await manager.getOne(id);
@@ -49,12 +64,26 @@ export const getOne = async (req, res, next) =>{
 
 export const update = async (req, res, next) =>{
   try {
-    await userUpdateValidation.parseAsync({ ...req.params, ...req.body});
+    
     const { id } = req.params;
+    const { cartId ,roleId } = req.body;
     const manager = new SessionManager();
+    const cartManager = new CartManager();
+    const roleManager = new RoleManager();
+
+    if (cartId) {
+      const cart = await cartManager.getCartById(cartId);
+      req.body.cart = cart.id
+    }
+
+    if (roleId) {
+      const role = await roleManager.getOne(roleId); 
+      req.body.role = role.id  
+    }
+    
     const result = await manager.updateOne(id, req.body);
-  
-    res.send({ status: 'success', result, message: 'User updated.' })
+    
+    res.send({ status: 'success', message: result })
   } 
   catch (e) {
     next(e)
