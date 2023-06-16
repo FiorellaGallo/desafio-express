@@ -1,6 +1,6 @@
-import SessionManager from "../managers/user.js";
-import CartManager from "../managers/carts.js";
-import RoleManager from "../managers/role.js";
+import SessionManager from "../../domain/managers/user.js";
+import CartManager from "../../domain/managers/carts.js";
+import RoleManager from "../../domain/managers/role.js";
 
 
 

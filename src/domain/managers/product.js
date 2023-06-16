@@ -1,6 +1,6 @@
 //import fs from "fs/promises";
 //import { productModel } from "../model/product.model.js";
-import productMongooseDao from "../dao/productMongooseDao.js";
+import productMongooseDao from "../../data/dao/productMongooseDao.js";
 
 class ProductManager {
   //products = [];

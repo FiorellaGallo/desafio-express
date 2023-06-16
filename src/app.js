@@ -1,32 +1,31 @@
-import dotenv from "dotenv";
-dotenv.config();
+
 import  express  from 'express';
-import productsRouter from './routes/products.routes.js';
-import cartsRouter from './routes/carts.routes.js';
+import productsRouter from './presentation/routes/products.routes.js';
+import cartsRouter from './presentation/routes/carts.routes.js';
 import handlebars from 'express-handlebars';
 import __dirname from './dirname.js';
-import viewsRouter from './routes/views.routes.js';
+import viewsRouter from './presentation/routes/views.routes.js';
 import { Server } from 'socket.io';
-import ProductManager from "./managers/product.js";
+import ProductManager from "./domain/managers/product.js";
 import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import sessionRouter from "./routes/sessions.routes.js";
-import userRouter from "./routes/users.routes.js";
-import errorHandler from './middlewares/errorHandler.js';
-import roleRouter from "./routes/role.routes.js";
-
+import sessionRouter from "./presentation/routes/sessions.routes.js";
+import userRouter from "./presentation/routes/users.routes.js";
+import errorHandler from './presentation/middlewares/errorHandler.js';
+import roleRouter from "./presentation/routes/role.routes.js";
+import config from "./config/index.js";
 
 const productManager = new ProductManager();
 
 const app = express();
-const httpServer = app.listen(8084,() =>console.log("Escuchando..."));
+const httpServer = app.listen(config.port,() =>console.log("Escuchando..."));
 
 app.use(cookieParser());
 app.use(session({
   store:MongoStore.create({
-    mongoUrl: 'String de conexión',
+    mongoUrl: config.dbUri,
     ttl:15,
   }),
   secret:'1234567',
@@ -69,7 +68,7 @@ socketServer.on('connection', socket =>
   });
 })
 app.use(errorHandler);
-mongoose.connect( 'String de conexión').then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
+mongoose.connect( config.dbUri).then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
 
 
 

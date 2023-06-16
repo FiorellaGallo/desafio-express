@@ -1,5 +1,5 @@
-import CartManager from '../managers/carts.js';
-import ProductManager from '../managers/product.js';
+import CartManager from '../../domain/managers/carts.js';
+import ProductManager from '../../domain/managers/product.js';
 
 export const createCart=("/", async (req, res) => {
     const cartManager = new CartManager();

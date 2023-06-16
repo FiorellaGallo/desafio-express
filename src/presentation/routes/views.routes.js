@@ -1,5 +1,5 @@
 import express from "express";
-import ProductManager from "../managers/product.js";
+import ProductManager from "../../domain/managers/product.js";
 
 
 const router = express.Router();
