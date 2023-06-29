@@ -1,4 +1,5 @@
-import roleSchema from '../model/role.model.js'
+import roleSchema from '../../model/role.model.js'
+import Role from '../../../domain/entities/role.js';
 
 class RoleMongooseDao{
 
@@ -6,14 +7,15 @@ class RoleMongooseDao{
 
     const { limit, page } = criteria;
     const roleDocuments = await roleSchema.paginate({}, { limit, page });
+    const { docs, ...pagination} = roleDocuments
 
-    roleDocuments.docs = roleDocuments.docs.map(document => ({
-      id: document._id,
-      name: document.name,
-      permissions: document.permissions
-    }));
+    const roles = docs.map(document => new Role (
+       document._id,
+       document.name,
+       document.permissions
+    ));
 
-    return roleDocuments;
+    return {roles,pagination};
   }
 
   async getOne(id){
@@ -24,22 +26,22 @@ class RoleMongooseDao{
       throw new Error('Role dont exist.');
     }
 
-    return {
+    return new Role ({
         id: roleDocument?._id,
         name: roleDocument?.name,
         permissions: roleDocument?.permissions
-    }
+    })
   }
 
   async create(data){
 
     const roleDocument = await roleSchema.create(data);
 
-    return {
+    return new Role ({
         id: roleDocument._id,
         name: roleDocument.name,
         permissions: roleDocument.permissions
-    }
+    })
   }
 
   async updateOne(id, data){ 
@@ -51,11 +53,11 @@ class RoleMongooseDao{
       throw new Error('Role dont exist.');
     }
 
-    return {
+    return new Role ({
         id: roleDocument._id,
         name: roleDocument.name,
         permissions: roleDocument.permissions
-    }
+    })
   }
 
   async deleteOne(id){

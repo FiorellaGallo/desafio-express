@@ -1,9 +1,10 @@
 import express from "express";
+import container from "../../container.js";
 import ProductManager from "../../domain/managers/product.js";
 
 
 const router = express.Router();
-const productManager = new ProductManager();
+const productManager = container.resolve('ProductRepository');
 
 
 router.get('/', async(req, res)=>{

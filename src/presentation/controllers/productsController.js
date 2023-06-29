@@ -52,6 +52,7 @@ export const uploaderProduct = ("/add", async (req, res) => {
       //await productManager.loadData();
       data.thumbnail = img;
       const product = await productManager.addProduct(data);
+      console.log(product);
       res.send(product);
     } catch (error) {
       res.status(404).send(error.message);

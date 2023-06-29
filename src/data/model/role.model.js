@@ -11,3 +11,5 @@ const RoleSchema = new Schema ({
 RoleSchema.plugin(paginate);
 
 export default mongoose.model(roleCollection, RoleSchema);
+
+

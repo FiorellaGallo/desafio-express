@@ -1,7 +1,8 @@
-import { productModel } from "../model/product.model.js";
+import { productModel } from "../../model/product.model.js";
+import Product from "../../../domain/entities/products.js";
 
 class productMongooseDao {
-  
+
   async find(type, sortOrder, limit,stock) {
     const aggregate = [];
 
@@ -31,8 +32,8 @@ class productMongooseDao {
 
   async create(product) {
    const document = await productModel.create(product);
-    
-    return {
+    console.log(document);
+    return new Product({
       id: document._id,
       title: document.title,
       description: document.description,
@@ -41,7 +42,7 @@ class productMongooseDao {
       code: document.code,
       stock: document.stock,
       category: document.category
-    };
+    });
   }
 
   async getByCode(productCode){
@@ -54,7 +55,7 @@ class productMongooseDao {
     
     if (!document) return null;
 
-    return {
+    return new Product({
       id: document._id,
       title: document.title,
       description: document.description,
@@ -63,7 +64,7 @@ class productMongooseDao {
       code: document.code,
       stock: document.stock,
       category: document.category
-    };
+    });
   }
 
   async updateProduct(id,data){
@@ -71,7 +72,7 @@ class productMongooseDao {
 
     if(!document) return null;
 
-    return {
+    return new Product({
       id: document._id,
       title: document.title,
       description: document.description,
@@ -80,12 +81,12 @@ class productMongooseDao {
       code: document.code,
       stock: document.stock,
       category: document.category
-    };
+    });
   }
 
   async deleteProduct(id){
     const document = await productModel.deleteOne({_id:id});
-    return{
+    return new Product({
       id: document._id,
       title: document.title,
       description: document.description,
@@ -94,7 +95,7 @@ class productMongooseDao {
       code: document.code,
       stock: document.stock,
       category: document.category
-    };
+    });
   }
 
 }

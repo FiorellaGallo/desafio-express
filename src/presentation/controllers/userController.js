@@ -2,12 +2,13 @@ import SessionManager from "../../domain/managers/user.js";
 import CartManager from "../../domain/managers/carts.js";
 import RoleManager from "../../domain/managers/role.js";
 
+import { createHash, generateToken, isValidPassword } from "../../utils/index.js";
 
 
 export const list = async  (req, res, next) =>{
   try{
     const { limit, page } = req.query;
-    const manager = new UserManager();
+    const manager = new SessionManager();
 
     const users = await manager.paginate({ limit, page });
 
@@ -23,22 +24,27 @@ export const list = async  (req, res, next) =>{
 export const save = async (req, res, next) =>{
   try{
     const { cartId ,roleId } = req.body;
+    console.log("body previo",req.body);
     const manager = new SessionManager();
     const cartManager = new CartManager();
     const roleManager = new RoleManager();
-    const user = await manager.create(req.body);
+    
+
 
     if (cartId) {
       const cart = await cartManager.getCartById(cartId);
-      req.body.cart = cart.id
+      
+      req.body.cart = cart._id
     }
 
     if (roleId) {
       const role = await roleManager.getOne(roleId); 
-      req.body.role = role.id  
+      req.body.role = role._id  
     }
     
-  
+    const user = await manager.create({
+      ...req.body, password: await createHash(req.body.password)
+    });
     res.send({ status: 'success', user, message: 'User created.' })
 
   }
@@ -73,12 +79,12 @@ export const update = async (req, res, next) =>{
 
     if (cartId) {
       const cart = await cartManager.getCartById(cartId);
-      req.body.cart = cart.id
+      req.body.cart = cart._id
     }
 
     if (roleId) {
       const role = await roleManager.getOne(roleId); 
-      req.body.role = role.id  
+      req.body.role = role._id  
     }
     
     const result = await manager.updateOne(id, req.body);

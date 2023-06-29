@@ -1,5 +1,6 @@
 import CartManager from '../../domain/managers/carts.js';
 import ProductManager from '../../domain/managers/product.js';
+import TicketManager from '../../domain/managers/ticket.js';
 
 export const createCart=("/", async (req, res) => {
     const cartManager = new CartManager();
@@ -10,18 +11,23 @@ console.log(products);
   //await cartManager.loadData();
   //await productManager.loadData();
 
-    if (!products) await cartManager.addCart([]);
+    if (!products) {
+      await cartManager.addCart([])
+      return  res.status(202).send('Create cart');};
+    
 
     const existProducts = [];
     // Verificar si son productos válidos
     for (const product of products) {
-        const existProduct = await productManager.getProductById(String(product.id));
-       if (existProduct) existProducts.push(product)
-      else return res.status(404).send(`Product no exist id: ${product.id}`)
+        const existProduct = await productManager.getProductById(String(product._id));
+       console.log(existProduct);
+        if (existProduct) existProducts.push(product)
+      else return res.status(404).send(`Product no exist id: ${product._id}`)
     }
     
     // Genera un carrito con los productos recibidos
     const newCart = await cartManager.addCart(existProducts);
+    console.log('aca',existProducts);
 
     res.status(202).send(newCart);
 //,"Cart created successfully"
@@ -57,7 +63,7 @@ export const updateCart = ("/:cid/product/:pid", async (req, res) => {
     cartId.products.push({ id: pid, quantity: 1 });
   } 
 
-  const updatedCart = await cartManager.updateCart(cid,cartId);
+  const updatedCart = await cartManager.updateCart(cid,pid);
   res.send(updatedCart);
 });
 
@@ -128,3 +134,43 @@ export const updateQuantity = ("/:cid/products/:pid",
     res.send(newQuantity);
 
   });
+
+export const purchase = ("/:cid/purchase", async (req,res) => {
+  const cartManager = new CartManager();
+  const ticketManager = new TicketManager();
+  const productManager = new ProductManager();
+  const cid = (req.params.cid);
+
+ // const ticket = await ticketManager.create(data);
+  const cart = await cartManager.getCartById(cid);
+  let amount = 0;
+  const {email} = req.user;
+  let unprocessedProduct = [];
+
+
+
+  for (const cartProduct of cart.products){
+    console.log(cartProduct);
+    const product = await productManager.getProductById(cartProduct.product._id.toString());
+   
+    if (product.stock >= cartProduct.quantity){
+      const newStock = product.stock - cartProduct.quantity;
+      //product.stock = newStock;
+      await productManager.updateProduct(product._id, {stock : newStock})
+      amount += product.price * cartProduct.quantity;
+      await cartManager.deleteOneProduct(cid,cartProduct.product._id.toString())
+     
+    } 
+    else{unprocessedProduct.push(product._id);} 
+  }
+
+  const ticket = await ticketManager.create({amount:amount, purchaser:email});
+  
+  res.status(202).send({message:"Successful ticket",ticket:ticket,productNotAdded:unprocessedProduct});
+ 
+
+  
+
+
+
+});

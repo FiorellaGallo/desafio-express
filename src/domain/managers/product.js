@@ -1,6 +1,8 @@
 //import fs from "fs/promises";
 //import { productModel } from "../model/product.model.js";
-import productMongooseDao from "../../data/dao/productMongooseDao.js";
+
+import container from "../../container.js";
+
 
 class ProductManager {
   //products = [];
@@ -8,7 +10,7 @@ class ProductManager {
 
   constructor() {
     //this.path = "./data/products.json";
-    this.productDao = new productMongooseDao();
+    this.productRepository = container.resolve('ProductRepository');
   }
 
   async loadData() {
@@ -19,8 +21,8 @@ class ProductManager {
   }
 
   async getProducts(type,sortOrder,limit, stock) {
-    const products = await this.productDao.find(type,sortOrder,limit,stock)
-    return products;
+    const products = await this.productRepository.find(type,sortOrder,limit,stock)
+    return  products;
 
     /* try {
        const products = await fs.readFile(this.path, "utf-8");
@@ -37,7 +39,7 @@ class ProductManager {
       (product) => product?.code === newProduct.code
     );*/
 
-    const codeExist = await this.productDao.getByCode(newProduct.code);
+    const codeExist = await this.productRepository.getByCode(newProduct.code);
 
     if (codeExist) throw Error("This code exist");
 
@@ -61,7 +63,7 @@ class ProductManager {
     if (!newProduct.category || newProduct.category.trim().length === 0)
       throw Error("Empty category field");
 
-    return await this.productDao.create({
+    return await this.productRepository.create({
       ...newProduct,
       status: true,
     });
@@ -72,7 +74,7 @@ class ProductManager {
       id: ProductManager.id++,
     });
 */
-    // nuevo. falta llamar a la función del DAO
+    // nuevo. falta llamar a la función del Repository
     /*await productModel.create({
       ...newProduct,
       status: true,
@@ -94,7 +96,7 @@ class ProductManager {
        console.log(error);
        throw new Error("This product no exist");
      }*/
-    return this.productDao.getProductById(idProduct)
+    return this.productRepository.getProductById(idProduct)
   }
 
   async updateProduct(id, productChange) {
@@ -129,7 +131,7 @@ class ProductManager {
     return product;
     */
 
-    return await this.productDao.updateProduct(id,productChange)
+    return await this.productRepository.updateProduct(id,productChange)
   }
 
   async deleteProduct(id) {
@@ -142,7 +144,7 @@ class ProductManager {
     return true;
     */
 
-    return await this.productDao.deleteProduct(id);
+    return await this.productRepository.deleteProduct(id);
   }
 }
 

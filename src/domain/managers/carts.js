@@ -1,5 +1,7 @@
 //import fs from "fs/promises";
-import cartMongooseDao from "../../data/dao/cartMongooseDao.js";
+
+import container from "../../container.js";
+
 
 class CartManager {
   //carts = [];
@@ -7,7 +9,7 @@ class CartManager {
 
   constructor() {
     //this.path = "./data/carts.json";
-    this.cartDao = new cartMongooseDao();
+    this.cartRepository = container.resolve('CartRepository');
   }
 
   //async loadData() {
@@ -32,7 +34,7 @@ class CartManager {
 
   async addCart(cart) {
 
-    return await this.cartDao.createCart(cart);
+    return await this.cartRepository.createCart(cart);
 
     /*
     const cart = {
@@ -59,32 +61,32 @@ class CartManager {
       throw new Error("This cart no exist");
     }
     */
-    return await this.cartDao.findCartById(idCart);
+    return await this.cartRepository.findCartById(idCart);
   }
 
-  async updateCart(id, cart) {
+  async updateCart(idCart, idProduct) {
     /*
     this.carts[cart.id] = cart;
     await fs.writeFile(this.path, JSON.stringify(this.carts));
     */
-   return await this.cartDao.updateCart(id, cart); 
+   return await this.cartRepository.updateCart(idCart, idProduct); 
   }
 
   async deleteOneProduct(cid,pid) {
-    return await this.cartDao.deleteProduct(cid,pid);
+    return await this.cartRepository.deleteProduct(cid,pid);
   }
 
   async deleteProducts(cid) {
-     return await this.cartDao.deleteAllProducts(cid)
+     return await this.cartRepository.deleteAllProducts(cid)
     
   }
 
   async changeAllProducts (cid, data) {
-    return await this.cartDao.changeProducts(cid, data)
+    return await this.cartRepository.changeProducts(cid, data)
   }
 
   async changeQuantity(cid, pid,quantity ){
-    return await this.cartDao.newQuantity(cid, pid, quantity)
+    return await this.cartRepository.newQuantity(cid, pid, quantity)
   }
 }
 

@@ -1,5 +1,35 @@
+import AppFactory from "./presentation/factories/appFactory.js";
+import DbFactory from "./data/factories/dbFactory.js";
+import config from "./config/index.js";
 
-import  express  from 'express';
+void (async() =>
+{
+  const db = DbFactory.create(process.env.DB);
+  db.init(config.dbUri);
+
+  const app = AppFactory.create();
+
+  app.init();
+  app.build();
+  app.listen();
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import  express  from 'express';
 import productsRouter from './presentation/routes/products.routes.js';
 import cartsRouter from './presentation/routes/carts.routes.js';
 import handlebars from 'express-handlebars';
@@ -70,7 +100,7 @@ socketServer.on('connection', socket =>
 app.use(errorHandler);
 mongoose.connect( config.dbUri).then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
 
-
+*/
 
 
 
