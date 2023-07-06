@@ -1,7 +1,7 @@
 import { cartModel } from '../../model/cart.model.js';
 import Carts from '../../../domain/entities/carts.js';
 
-class CartMongooseDao {
+class CartMongooseRepository {
 
     async createCart(cart) {
         console.log( 'este es el carrito',cart);
@@ -138,4 +138,4 @@ class CartMongooseDao {
 
 };
 
-export default CartMongooseDao;
+export default CartMongooseRepository;

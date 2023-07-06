@@ -2,36 +2,40 @@ import { Error } from 'mongoose';
 import userSchema from '../../model/user.model.js';
 import User from '../../../domain/entities/user.js';
 import Carts from '../../../domain/entities/carts.js';
+import Role from '../../../domain/entities/role.js';
 
-class UserMongooseDao{
+class UserMongooseRepository{
 
     async paginate(criteria){
       const { limit, page } = criteria;
       const userDocuments = await userSchema.paginate({}, { limit, page });
       const { docs, ...pagination } = userDocuments;
-
-  
+      
+    
       const users = docs.map(document =>  new User ({
         id: document._id,
         firstName: document.firstName,
         lastName: document.lastName,
         email: document.email,
         age: document.age,
-        cart: document?new Carts(
-            document.cart.id,
+        cart: document.cart?new Carts(
+            document.cart._id,
             document.cart.products
         ):null,
         isAdmin:document?.isAdmin,
-        role:document? new Role(
-            document.role.id,
+        role:document.role? new Role(
+            document.role._id,
             document.role.name,
             document.role.permissions
         ):null
+       
         
     }));
+   
         return{
             users,
             pagination
+           
         }
     }
 
@@ -105,4 +109,4 @@ class UserMongooseDao{
 
 }
 
-export default UserMongooseDao;
+export default UserMongooseRepository;

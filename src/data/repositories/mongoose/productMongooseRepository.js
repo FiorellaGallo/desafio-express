@@ -1,7 +1,7 @@
 import { productModel } from "../../model/product.model.js";
 import Product from "../../../domain/entities/products.js";
 
-class productMongooseDao {
+class ProductMongooseRepository {
 
   async find(type, sortOrder, limit,stock) {
     const aggregate = [];
@@ -100,4 +100,4 @@ class productMongooseDao {
 
 }
 
-export default productMongooseDao;
+export default ProductMongooseRepository;

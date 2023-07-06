@@ -8,12 +8,15 @@ import { createHash, generateToken, isValidPassword } from "../../utils/index.js
 export const list = async  (req, res, next) =>{
   try{
     const { limit, page } = req.query;
+    
     const manager = new SessionManager();
 
     const users = await manager.paginate({ limit, page });
+   
+
 
     res.send({ status: 'success', users: users.docs, ...users, docs: undefined });
-
+    
   }
   catch(e){
     next(e);
@@ -24,7 +27,6 @@ export const list = async  (req, res, next) =>{
 export const save = async (req, res, next) =>{
   try{
     const { cartId ,roleId } = req.body;
-    console.log("body previo",req.body);
     const manager = new SessionManager();
     const cartManager = new CartManager();
     const roleManager = new RoleManager();

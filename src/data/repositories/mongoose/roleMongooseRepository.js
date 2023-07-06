@@ -1,7 +1,7 @@
 import roleSchema from '../../model/role.model.js'
 import Role from '../../../domain/entities/role.js';
 
-class RoleMongooseDao{
+class RoleMongooseRepository{
 
   async paginate(criteria){
 
@@ -65,4 +65,4 @@ class RoleMongooseDao{
   }
 }
 
-export default RoleMongooseDao;
+export default RoleMongooseRepository;
