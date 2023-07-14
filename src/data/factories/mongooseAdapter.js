@@ -8,6 +8,7 @@ class MongooseAdapter
           useNewUrlParser: true,
           useUnifiedTopology: true
         });
+        
     }
 
     async close()
@@ -16,7 +17,9 @@ class MongooseAdapter
     }
     async drop()
     {
-      await this.connection.dropDatabase();
+      console.log(this.connection.connection.db);
+      await this.connection.connection.db.dropDatabase();
+      
     }
 }
 

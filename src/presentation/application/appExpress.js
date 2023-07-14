@@ -50,6 +50,14 @@ class AppExpress{
         this.app.use(errorHandler);
 
     }
+    callback(){
+       return this.app; 
+
+    }
+    close(){
+        this.server.close();
+    }
+
     listen(){
         const httpServer = this.app.listen(config.port,()=>{
             console.log("Server listening...");

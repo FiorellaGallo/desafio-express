@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./src/app.js",
   "scripts": {
-    "test": "mocha ./src/tests/userMongooseRepository.test.js",
+    "test": "mocha ./src/tests/product.test.js",
     "dev": "nodemon ./src/app.js"
   },
   "keywords": [],
@@ -33,6 +33,7 @@
   "description": "",
   "devDependencies": {
     "chai": "^4.3.7",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }
