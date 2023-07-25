@@ -30,7 +30,7 @@ class SessionManager{
     }
 
     async updateOne(id, data){
-        await userUpdateValidation.parseAsync({ ...data, id });
+       await userUpdateValidation.parseAsync({ ...data, id });
         return this.userRepository.updateOne(id, data);
     }
 

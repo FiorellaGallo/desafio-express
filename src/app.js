@@ -4,7 +4,7 @@ import config from "./config/index.js";
 
 void (async() =>
 {
-  const db = DbFactory.create(process.env.DB);
+  const db = DbFactory.create(config.dbType);
   db.init(config.dbUri);
 
   const app = AppFactory.create();

@@ -12,10 +12,9 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "../routes/sessions.routes.js";
 import userRouter from "../routes/users.routes.js";
-import errorHandler from '../../presentation/middlewares/errorHandler.js';
+import errorHandler from '../middlewares/errorHandler.js';
 import roleRouter from "../routes/role.routes.js";
 import config from "../../config/index.js";
-import emailRouter from '../routes/email.routes.js';
 
 
 class AppExpress{
@@ -34,7 +33,7 @@ class AppExpress{
 
         this.app.engine('handlebars', handlebars.engine())
         this.app.set('view engine', 'handlebars');
-        this.app.set('views', __dirname+'/presentation/views');
+        this.app.set('views', __dirname+'/views');
 
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended:true}))
@@ -48,7 +47,6 @@ class AppExpress{
         this.app.use("/api/products", productsRouter);
         this.app.use("/api/carts", cartsRouter);
         this.app.use('/api/roles', roleRouter);
-        this.app.use('/api/email/',emailRouter);
         this.app.use(errorHandler);
 
     }

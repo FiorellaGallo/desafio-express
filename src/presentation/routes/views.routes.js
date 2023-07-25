@@ -3,12 +3,13 @@ import container from "../../container.js";
 import ProductManager from "../../domain/managers/product.js";
 
 
+
 const router = express.Router();
 const productManager = container.resolve('ProductRepository');
 
 
 router.get('/', async(req, res)=>{
-    const products = await productManager.getProducts(null,null,10);
+    const products = await productManager.find(null,null,10);
 
     const objetoParaHandlebars = {
         elementos: products
@@ -17,7 +18,7 @@ router.get('/', async(req, res)=>{
 });
 
 router.get('/realtimeproducts',async (req,res)=>{
-    const products = await productManager.getProducts(null,null,10);
+    const products = await productManager.find(null,null,10);
     console.log(products);
     const objetoParaHandlebars = {
         elementos: products   
@@ -25,6 +26,14 @@ router.get('/realtimeproducts',async (req,res)=>{
 
     res.render('realTimeProducts', objetoParaHandlebars)
 });
+
+router.get ('/changePassword',async (req,res) =>{
+    const objetoParaHandlebars = {
+        userName: "Fiorella"   
+    }
+
+    res.render('changePassword',objetoParaHandlebars)
+})
 
 
 
