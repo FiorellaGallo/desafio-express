@@ -16,6 +16,9 @@ import errorHandler from '../../presentation/middlewares/errorHandler.js';
 import roleRouter from "../routes/role.routes.js";
 import config from "../../config/index.js";
 import emailRouter from '../routes/email.routes.js';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerOptions from '../../../docs/config.js';
+import swaggerUiExpress from'swagger-ui-express';
 
 
 class AppExpress{
@@ -39,6 +42,9 @@ class AppExpress{
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended:true}))
         this.app.use(express.static('public'))
+
+        const specs = swaggerJsdoc(swaggerOptions);
+        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs))
 
     }
     build(){

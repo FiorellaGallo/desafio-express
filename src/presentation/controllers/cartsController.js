@@ -76,7 +76,6 @@ export const deleteProduct =
     const pid = String(req.params.pid);
 
     const cart = await cartManager.getCartById(cid);
-    console.log(cart.products);
 
     const productCart = cart.products.find((product) => product?.product._id.toString() === pid);
     if (!productCart) return res.status(404).send("Product no exist");
