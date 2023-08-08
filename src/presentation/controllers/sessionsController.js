@@ -34,8 +34,8 @@ export const current = async  (req, res) =>
   res.status(200).send({ status: 'Success', payload: req.user });
 };
 
-export const signup = async (req, res) =>
-{
+export const signup = async (req, res, next) =>
+{try{ 
     const manager = new SessionManager();
 
     const payload = {
@@ -46,4 +46,9 @@ export const signup = async (req, res) =>
     const user = await manager.create(payload);
 
     res.status(201).send({ status: 'success', user, message: 'User created.' });
-};
+  }
+  catch(e){
+    next(e)
+  }
+
+}

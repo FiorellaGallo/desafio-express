@@ -1,5 +1,6 @@
 import { cartModel } from '../../model/cart.model.js';
 import Carts from '../../../domain/entities/carts.js';
+import { loggers } from 'winston';
 
 class CartMongooseRepository {
 
@@ -7,6 +8,7 @@ class CartMongooseRepository {
         console.log( 'este es el carrito',cart);
         const document = await cartModel.create({ products: cart });
         console.log(document);
+        
         return new Carts({
             id: document._id,
             products: document.products.map(product => ({
@@ -20,6 +22,7 @@ class CartMongooseRepository {
         const document = await cartModel.findOne({ _id: id }).populate("products._id");
 
         if (!document) return null;
+        console.log(document);
 
         return new Carts({
             id: document._id,

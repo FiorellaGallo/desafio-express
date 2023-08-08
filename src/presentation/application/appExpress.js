@@ -19,6 +19,7 @@ import emailRouter from '../routes/email.routes.js';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerOptions from '../../../docs/config.js';
 import swaggerUiExpress from'swagger-ui-express';
+import { addLogger } from '../../winston/logger.js';
 
 
 class AppExpress{
@@ -45,7 +46,7 @@ class AppExpress{
 
         const specs = swaggerJsdoc(swaggerOptions);
         this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs))
-
+        this.app.use(addLogger);
     }
     build(){
         this.app.use('/',viewsRouter);
