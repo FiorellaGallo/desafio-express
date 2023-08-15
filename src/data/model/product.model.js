@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
     thumbnail: {type:String},
     code: {type:String},
     stock: {type:Number},
-    category: {type:String}
+    category: {type:String},
+    owner: {type:String, default:"Admin"}// se agrega nueva propiedad
    
 })
 

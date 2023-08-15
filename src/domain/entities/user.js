@@ -12,6 +12,7 @@ class User
       this.cart = props.cart;
       this.role = props.role;
       this.isAdmin = props.isAdmin;
+      this.documents = props.documents;
   }
 }
 

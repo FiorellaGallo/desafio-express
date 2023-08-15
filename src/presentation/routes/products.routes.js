@@ -14,4 +14,5 @@ router.put("/update/:pid",auth, authorization('putProduct'), updateOneProduct);
 router.delete("/delete/:pid",auth, authorization('deleteProduct'), deleteById);
 
 
+
 export default router;

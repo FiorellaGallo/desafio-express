@@ -13,8 +13,6 @@ export const list = async  (req, res, next) =>{
 
     const users = await manager.paginate({ limit, page });
    
-
-
     res.send({ status: 'success', users: users.docs, ...users, docs: undefined });
     
   }
@@ -31,8 +29,6 @@ export const save = async (req, res, next) =>{
     const cartManager = new CartManager();
     const roleManager = new RoleManager();
     
-
-
     if (cartId) {
       const cart = await cartManager.getCartById(cartId);
       
@@ -112,3 +108,53 @@ export const deleteOne = async (req, res, next) =>{
   }
   
 };
+
+export const updateRol = async (req, res, next)=>{
+  try{
+    
+    const { id } = req.params;
+    const rolPremium = '64d7bf2aadfbef09839e84f6';
+    const rolUser= '647fc202e1e0b1b4e346bc8b';
+
+    const isPremium =req.body.premium; //premium es un flag(bandera) va a devolver true/false
+    const result = await manager.updateOne(id,{role: isPremium ? rolPremium : rolUser});//utilce un operador ternario
+    res.send({ status: 'success', message: result })
+  }
+  catch(e){
+    next(e)
+  }
+};
+
+export const addDocuments = async (req,res,next)=>{
+  try {
+    const manager = new SessionManager();
+    const { id } = req.params;
+    const data = req.body;
+   
+    const profileImages = req.files['profiles'];
+    const productImages = req.files['products'];
+    const documents = req.files['documents'];
+    console.log(req.files);
+
+    const archive = [];
+    if (profileImages) {
+      archive.push(...profileImages.map(file =>{ return { name:file.filename , reference: `http://localhost:8084/${file.path.replace("public/", "")}`}}));
+    }
+
+    if (productImages) {
+      archive.push(...productImages.map(file =>{ return { name:file.filename , reference: `http://localhost:8084/${file.path.replace("public/", "")}`}}));
+    }
+
+    if (documents) {
+      archive.push(...documents.map(file =>{ return { name:file.filename , reference: `http://localhost:8084/${file.path.replace("public/", "")}`}}));
+    }
+    console.log(productImages);
+    data.reference = archive;
+    const result = await manager.updateOne(id,{documents:archive});
+    res.send({ status: 'success', message: result });
+      
+  } 
+  catch (e) {
+    next(e);
+  }
+}

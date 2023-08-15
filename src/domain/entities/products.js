@@ -10,6 +10,7 @@ class Product
       this.code = props.code;
       this.stock = props.stock;
       this.category = props.category;
+      this.owner = props.owner;
       
   }
 }

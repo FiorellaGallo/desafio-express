@@ -11,7 +11,12 @@ const UserSchema = new Schema({
     password: {type:Schema.Types.String},
     cart: { type: mongoose.Schema.Types.ObjectId,index:true, ref:'cart'},
     role:{ type: mongoose.Schema.Types.ObjectId,index:true, ref:'role'},
-    isAdmin: { type: Schema.Types.Boolean, default: false }
+    isAdmin: { type: Schema.Types.Boolean, default: false },
+    documents:[{
+        name:{type:Schema.Types.String},
+        reference:{type:Schema.Types.String}
+    }],
+    lastConnection:{ type: Schema.Types.Boolean}
     
 
 });

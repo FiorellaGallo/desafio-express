@@ -41,7 +41,8 @@ class ProductMongooseRepository {
       thumbnail: document.thumbnail,
       code: document.code,
       stock: document.stock,
-      category: document.category
+      category: document.category,
+      owner: document.owner
     });
   }
 
@@ -63,7 +64,8 @@ class ProductMongooseRepository {
       thumbnail: document.thumbnail,
       code: document.code,
       stock: document.stock,
-      category: document.category
+      category: document.category,
+      owner: document.owner
     });
   }
 
@@ -80,7 +82,8 @@ class ProductMongooseRepository {
       thumbnail: document.thumbnail,
       code: document.code,
       stock: document.stock,
-      category: document.category
+      category: document.category,
+      owner: document.owner
     });
   }
 
@@ -94,7 +97,8 @@ class ProductMongooseRepository {
       thumbnail: document.thumbnail,
       code: document.code,
       stock: document.stock,
-      category: document.category
+      category: document.category,
+      owner: document.owner
     });
   }
 

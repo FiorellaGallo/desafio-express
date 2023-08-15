@@ -51,7 +51,8 @@ class UserMongooseRepository{
             password: userDocument.password,
             cart: userDocument?.cart,// id carrito
             role:userDocument?.role ,// id rol
-            isAdmin:userDocument?.isAdmin
+            isAdmin:userDocument?.isAdmin,
+            documents:userDocument?.documents
         })
     }
 
@@ -68,12 +69,14 @@ class UserMongooseRepository{
             password: userDocument?.password,
             cart: userDocument?.cart,
             role:userDocument?.role,
-            isAdmin:userDocument?.isAdmin
+            isAdmin:userDocument?.isAdmin,
+            documents:userDocument?.documents
         })
     }
 
     async getOneByEmail(email){
         const userDocument = await userSchema.findOne({email}).populate('cart').populate('role');
+        console.log(userDocument);
         if (!userDocument) throw new Error('User dont exit.');
         return new User({
             id: userDocument?._id,
@@ -84,7 +87,8 @@ class UserMongooseRepository{
             password: userDocument?.password,
             cart: userDocument?.cart,
             role:userDocument?.role,
-            isAdmin:userDocument?.isAdmin
+            isAdmin:userDocument?.isAdmin,
+            documents:userDocument?.documents,
         }) 
     }
 
@@ -99,7 +103,8 @@ class UserMongooseRepository{
             age: userDocument.age,
             cart: userDocument?.cart,// id cart
             role:userDocument?.role ,     // id role
-            isAdmin:userDocument?.isAdmin
+            isAdmin:userDocument?.isAdmin,
+            documents:userDocument?.documents
         })
     }
 

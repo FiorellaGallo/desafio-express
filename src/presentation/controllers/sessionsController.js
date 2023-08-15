@@ -13,7 +13,7 @@ export const login = async  (req, res) =>{
     const rol = email === 'adminCoder@coder.com' ? "Admin":"Usuario";
 
     if (!isHashedPassword) return res.status(401).send({ message: 'Login failed, invalid password.'})
-    
+   // console.log("Usuario previo a generar jwt",user);
     const accessToken = await generateToken(user);
     
     res.send({ accessToken, message: 'Login success!',...user,password:undefined,rol});

@@ -38,7 +38,7 @@ export const getOneById = ("/:pid", async (req, res) => {
 
 export const uploaderProduct = ("/add", async (req, res) => {
   //Los datos del producto fueron pasados por form-data.
-
+    const{email}= req.user; // destructurin , obtengo el email del objeto req.user que proviene del middleware de auth
     const productManager = new ProductManager();
     try {
       if (!req.file) {
@@ -49,8 +49,9 @@ export const uploaderProduct = ("/add", async (req, res) => {
       const data = req.body;
       if (!data) return res.status(404).send("No product");
       const img = `http://localhost:8084/${req.file.path.replace("public/", "")}`;
-      //await productManager.loadData();
+    
       data.thumbnail = img;
+      data.owner = email;// guardo en data ( en la propiedad owner) el email obtenido del objeto req.user 
       const product = await productManager.addProduct(data);
       console.log(product);
       res.send(product);
@@ -62,11 +63,12 @@ export const uploaderProduct = ("/add", async (req, res) => {
 export const updateOneProduct = ("/update/:pid", async (req, res) => {
 
     const productManager = new ProductManager();
-
+    const{email , isAdmin} = req.user;//además traemos el isAdmin para trabajar luego en el manager con las validaciones
     const id = String(req.params.pid);
     const data = req.body;
-    //await productManager.loadData();
-    const product = await productManager.updateProduct(id,data);
+    data.owner = email;//volvemos atraer el email del objeto req.user. Email lo guardamos dentro de data
+   
+    const product = await productManager.updateProduct(id,data,isAdmin);
     if (!data) return res.status(404).send("No product");
     res.send(product);
 });
@@ -77,7 +79,7 @@ export const deleteById =("/delete/:pid", async(req,res) =>{
     const productManager = new ProductManager();
 
     const id= String(req.params.pid)
-    //await productManager.loadData()
+
     const deleteElement = await productManager.deleteProduct(id)
     if(!deleteElement) return res.status(404).send("Product no exist")
     res.send("Delete product")
