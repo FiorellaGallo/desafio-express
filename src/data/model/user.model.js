@@ -1,4 +1,4 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose,{Schema} from 'mongoose';
 import paginate from'mongoose-paginate-v2';
 
 const userCollection = 'users';
@@ -16,7 +16,7 @@ const UserSchema = new Schema({
         name:{type:Schema.Types.String},
         reference:{type:Schema.Types.String}
     }],
-    lastConnection:{ type: Schema.Types.Boolean}
+    lastConnection:{ type: Schema.Types.Date, default:Date.now}// VER ESTO ..AUN NO LO TERMINE
     
 
 });

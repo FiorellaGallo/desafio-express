@@ -1,16 +1,25 @@
-<div>
-  <ol>
+<style>
+  body {
+    background-color: #c4b498; 
+  }
+  
+  .card-container {
+    padding: 50px 0; 
+  }
+</style>
+
+<div class="container card-container">
+  <div class="row">
     {{#each elementos}}
-      <div class="card" style="width: 18rem;">
-        <img src={{this.thumbnail}} class="card-img-top" alt="..."/>
+    <div class="col-md-4">
+      <div class="card mb-4" style="border: none; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);width: 18rem;">
+        <img src="{{this.thumbnail}}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{this.title}}</h5>
           <p class="card-text">{{this.description}}</p>
-          
         </div>
       </div>
-
-      
+    </div>
     {{/each}}
-  </ol>
+  </div>
 </div>

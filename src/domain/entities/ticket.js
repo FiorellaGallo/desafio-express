@@ -8,7 +8,7 @@ class Ticket
       this.amount = props.amount;
       this.purchaser = props.purchaser
       
-  }
-}
+  };
+};
 
 export default Ticket;

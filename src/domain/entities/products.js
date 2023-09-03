@@ -12,7 +12,7 @@ class Product
       this.category = props.category;
       this.owner = props.owner;
       
-  }
-}
+  };
+};
 
 export default Product;

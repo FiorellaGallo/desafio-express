@@ -25,28 +25,31 @@ import { addLogger } from '../../winston/logger.js';
 class AppExpress{
     init(){
         this.app = express();
+        this.app.use(addLogger);
         this.app.use(cookieParser());
         this.app.use(session({
-                store:MongoStore.create({
+            store:MongoStore.create({
                 mongoUrl: config.dbUri,
                 ttl:15,
-                }),
-             secret:'1234567',
-             resave:false,
-             saveUninitialized:false
-            }))
-
-        this.app.engine('handlebars', handlebars.engine())
+            }),
+            secret:'1234567',
+            resave:false,
+            saveUninitialized:false
+        }));
+        
+        this.app.engine('handlebars', handlebars.engine());
         this.app.set('view engine', 'handlebars');
         this.app.set('views', __dirname+'/presentation/views');
-
-        this.app.use(express.json())
-        this.app.use(express.urlencoded({extended:true}))
-        this.app.use(express.static('public'))
+        
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({extended:true}));
+        this.app.use(express.static('public'));
 
         const specs = swaggerJsdoc(swaggerOptions);
-        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs))
-        this.app.use(addLogger);
+        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
+
+      
+        
     }
     build(){
         this.app.use('/',viewsRouter);
@@ -70,7 +73,7 @@ class AppExpress{
     listen(){
         const httpServer = this.app.listen(config.port,()=>{
             console.log("Server listening...");
-        })
+        });
         const productManager = new ProductManager();
         const socketServer = new Server(httpServer);
         socketServer.on('connection', socket =>
@@ -78,23 +81,23 @@ class AppExpress{
             console.log('Nuevo cliente conectado');
 
             socket.on('add', async(data) => {
-                //await productManager.loadData()
+                
                 await productManager.addProduct(data)
                 socket.emit('newList',await productManager.getProducts())
             });
 
             socket.on('delete', async(data) => {
-                //await productManager.loadData()
+                
                 await productManager.deleteProduct(data)
                 console.log(data);
                 socket.emit('deleteProduct',await productManager.getProducts(null,null,10))
             });
-        })
+        });
 
         return httpServer;
 
-    }
-}
+    };
+};
 
 export default AppExpress;
 

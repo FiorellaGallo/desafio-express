@@ -1,13 +1,13 @@
 <div>
-  <ol id="list">
+  <ol id='list'>
     {{#each elementos}}
     {{#if this}}
-    <div class="card" style="width: 18rem;">
-        <img src={{this.thumbnail}} class="card-img-top" alt="..."/>
-        <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <p class="card-text">{{this.description}}</p>
-          <button onclick="deleteProductById(event)" data-id="{{this._id}}"   >Eliminar</button>  
+    <div class='card' style='width: 18rem;'>
+        <img src={{this.thumbnail}} class='card-img-top' alt='...'/>
+        <div class='card-body'>
+          <h5 class='card-title'>{{this.title}}</h5>
+          <p class='card-text'>{{this.description}}</p>
+          <button onclick='deleteProductById(event)' data-id='{{this._id}}'   >Eliminar</button>  
         </div>
       </div>
     {{/if}}
@@ -15,36 +15,36 @@
   </ol>
 
 
-  <form id="delete" action="">
-    <label for="texto">ID del producto a eliminar</label>
-    <input type="text" id="id" name="id" />
-    <button type="submit">Eliminar</button>
+  <form id='delete' action=''>
+    <label for='texto'>ID del producto a eliminar</label>
+    <input type='text' id='id' name='id' />
+    <button type='submit'>Eliminar</button>
   </form>
 
-  <form id="create" action="" style="display:flex; flex-direction: colum; width:60%; margin-left:20%;">
-   <h4 style:"text-aling: center;" >Formulario para crear productos</h4>
-    <label for="texto">Titulo</label>
-    <input type="text" class="form-control" id="title" name="title" />
+  <form id='create' action='' style='display:flex; flex-direction: colum; width:60%; margin-left:20%;'>
+   <h4 style:'text-aling: center;' >Formulario para crear productos</h4>
+    <label for='texto'>Titulo</label>
+    <input type='text' class='form-control' id='title' name='title' />
 
-    <label for="texto">Descripcion</label>
-    <input type="text" class="form-control"  id="description" name="description" />
+    <label for='texto'>Descripcion</label>
+    <input type='text' class='form-control'  id='description' name='description' />
 
-    <label for="texto">Precio</label>
-    <input type="number" class="form-control"  id="price" name="price" />
+    <label for='texto'>Precio</label>
+    <input type='number' class='form-control'  id='price' name='price' />
 
-    <label for="texto">Thumbnail</label>
-    <input type="file"class="form-control"  id="thumbnail" name="thumbnail" />
+    <label for='texto'>Thumbnail</label>
+    <input type='file'class='form-control'  id='thumbnail' name='thumbnail' />
 
-    <label for="texto">Codigo</label>
-    <input type="text" class="form-control"  id="category" name="category" />
+    <label for='texto'>Codigo</label>
+    <input type='text' class='form-control'  id='category' name='category' />
 
-    <label for="texto">Category</label>
-    <input type="text" class="form-control"  id="code" name="code" />
+    <label for='texto'>Category</label>
+    <input type='text' class='form-control'  id='code' name='code' />
 
-    <label for="texto">Stock</label>
-    <input type="number" class="form-control"  id="stock" name="stock" />
+    <label for='texto'>Stock</label>
+    <input type='number' class='form-control'  id='stock' name='stock' />
 
-    <button type="submit" class="btn btn-success" style="margin-bottom: 5rem;">Crear</button>
+    <button type='submit' class='btn btn-success' style='margin-bottom: 5rem;'>Crear</button>
   </form>
 
 
@@ -52,7 +52,7 @@
 
 
 
-<script src="/socket.io/socket.io.js"></script>
+<script src='/socket.io/socket.io.js'></script>
 
 
 <script>

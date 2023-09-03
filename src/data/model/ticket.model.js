@@ -1,19 +1,19 @@
-import mongoose from "mongoose";
+import mongoose ,{Schema}from 'mongoose';
 import randomstring from 'randomstring';
-import moment from "moment";
+import moment from 'moment';
 
 
-const ticketCollection = 'ticket'
+const ticketCollection = 'ticket';
 
-const ticketSchema = new mongoose.Schema({
+const ticketSchema = new Schema({
 
-    code: {type:String,unique:true},
-    purchaseDateTime: {type:String},
-    amount:{type:Number},
-    purchaser: {type:String}
+    code: {type:Schema.Types.String,unique:true},
+    purchaseDateTime: {type:Schema.Types.String},
+    amount:{type:Schema.Types.Number},
+    purchaser: {type:Schema.Types.String}
     
    
-})
+});
 
 ticketSchema.pre('save', function (next) {
     if (!this.code) {

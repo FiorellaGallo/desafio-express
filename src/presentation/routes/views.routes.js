@@ -1,6 +1,6 @@
-import express from "express";
-import container from "../../container.js";
-import ProductManager from "../../domain/managers/product.js";
+import express from 'express';
+import container from '../../container.js';
+
 
 
 
@@ -29,7 +29,7 @@ router.get('/realtimeproducts',async (req,res)=>{
 
 router.get ('/changePassword',async (req,res) =>{
     const objetoParaHandlebars = {
-        userName: "Fiorella"   
+        userName: 'Fiorella'   
     }
 
     res.render('changePassword',objetoParaHandlebars)

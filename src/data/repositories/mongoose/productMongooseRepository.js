@@ -1,5 +1,5 @@
-import { productModel } from "../../model/product.model.js";
-import Product from "../../../domain/entities/products.js";
+import { productModel } from '../../model/product.model.js';
+import Product from '../../../domain/entities/products.js';
 
 class ProductMongooseRepository {
 
@@ -10,29 +10,30 @@ class ProductMongooseRepository {
       aggregate.push(
         { $sort: { price: sortOrder } }
       )
-    }
+    };
     if (type != null) {
       aggregate.push(
         { $match: { category: type } }
       )
-    }
+    };
 
     if (stock && stock > 0) {
       aggregate.push({
         $match: {stock: { $gte: stock}}
       })
-    }
-    aggregate.push({ $limit: limit })
+    };
+    aggregate.push({ $limit: limit });
   
-    const filtered = await productModel.aggregate(aggregate)
+    const filtered = await productModel.aggregate(aggregate);
+    
     return filtered;
     
-  }
+  };
 
-
+  
   async create(product) {
    const document = await productModel.create(product);
-    console.log(document);
+   
     return new Product({
       id: document._id,
       title: document.title,
@@ -44,15 +45,16 @@ class ProductMongooseRepository {
       category: document.category,
       owner: document.owner
     });
-  }
+  };
 
   async getByCode(productCode){
     const product = await productModel.findOne({code:productCode});
+   
     return product;
   }
 
   async getProductById(id){
-    const document = await productModel.findOne({_id:id}).catch(()=>{return null})
+    const document = await productModel.findOne({_id:id}).catch(()=>{return null});
     
     if (!document) return null;
 
@@ -67,10 +69,10 @@ class ProductMongooseRepository {
       category: document.category,
       owner: document.owner
     });
-  }
+  };
 
   async updateProduct(id,data){
-    const document = await productModel.findOneAndUpdate({ _id: id }, data, { new: true})
+    const document = await productModel.findOneAndUpdate({ _id: id }, data, { new: true});
 
     if(!document) return null;
 
@@ -85,10 +87,11 @@ class ProductMongooseRepository {
       category: document.category,
       owner: document.owner
     });
-  }
+  };
 
   async deleteProduct(id){
     const document = await productModel.deleteOne({_id:id});
+
     return new Product({
       id: document._id,
       title: document.title,
@@ -100,8 +103,8 @@ class ProductMongooseRepository {
       category: document.category,
       owner: document.owner
     });
-  }
+  };
 
-}
+};
 
 export default ProductMongooseRepository;

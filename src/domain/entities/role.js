@@ -6,7 +6,7 @@ class Role
       this.name = props.name;
       this.permissions = props.permissions
       
-  }
-}
+  };
+};
 
 export default Role;

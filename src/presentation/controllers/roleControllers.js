@@ -1,4 +1,4 @@
-import RoleManager from "../../domain/managers/role.js";
+import RoleManager from '../../domain/managers/role.js';
 
 
 export const list = async  (req, res, next) =>{
@@ -34,7 +34,7 @@ export const save = async (req, res, next) =>{
   try{
     const manager = new RoleManager();
     const role = await manager.create(req.body);
-
+    req.prodLogger.info(role);
     res.send({ status: 'success', role, message: 'Role created.' });
   }
   catch (e) {
@@ -49,7 +49,7 @@ export const update = async (req, res, next) =>{
 
     const manager = new RoleManager();
     const result = await manager.updateOne(id, req.body);
-
+    req.prodLogger.info(result);
     res.send({ status: 'success', result, message: 'Role updated.' });
   }
   catch (e){

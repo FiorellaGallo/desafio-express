@@ -1,19 +1,19 @@
-import mongoose from "mongoose";
+import mongoose,{Schema}from 'mongoose';
 
 
-const productCollection = 'products'
+const productCollection = 'products';
 
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema({
 
-    title: {type:String},
-    description: {type:String},
-    price:{type:Number},
-    thumbnail: {type:String},
-    code: {type:String},
-    stock: {type:Number},
-    category: {type:String},
-    owner: {type:String, default:"Admin"}// se agrega nueva propiedad
+    title: {type:Schema.Types.String},
+    description: {type:Schema.Types.String},
+    price:{type:Schema.Types.Number},
+    thumbnail: {type:Schema.Types.String},
+    code: {type:Schema.Types.String},
+    stock: {type:Schema.Types.Number},
+    category: {type:Schema.Types.String},
+    owner: {type:Schema.Types.String, default:"Admin"}
    
-})
+});
 
 export const productModel = mongoose.model(productCollection,productSchema);

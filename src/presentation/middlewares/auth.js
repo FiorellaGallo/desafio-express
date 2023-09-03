@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import config from "../../config/index.js";
+import jwt from 'jsonwebtoken';
+import config from '../../config/index.js';
 
 
 const auth = (req, res, next) =>{

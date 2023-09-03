@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { login,logout,signup,current} from "../controllers/sessionsController.js"
-import auth from "../middlewares/auth.js";
+import { Router } from 'express';
+import { login,logout,signup,current} from '../controllers/sessionsController.js'
+import auth from '../middlewares/auth.js';
 
 const sessionRouter = Router();
 

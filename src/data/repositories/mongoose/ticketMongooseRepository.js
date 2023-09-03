@@ -1,5 +1,5 @@
-import { ticketModel } from "../../model/ticket.model.js";
-import Ticket from "../../../domain/entities/ticket.js";
+import { ticketModel } from '../../model/ticket.model.js';
+import Ticket from '../../../domain/entities/ticket.js';
 
 class TicketMongooseRepository{
     
@@ -14,10 +14,10 @@ class TicketMongooseRepository{
             amount: document.amount,
             purchaser: document.purchaser
             
-        })
+        });
 
 
-    }
-}
+    };
+};
 
 export default TicketMongooseRepository;

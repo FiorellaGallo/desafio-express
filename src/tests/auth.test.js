@@ -86,8 +86,6 @@ describe('Testing Auth Endpoints Success', ()=>{
 
     it('Current /api/sessions/current', function ()
     {
-        
-
         return this.requester
             .get('/api/sessions/current')
             .set('Authorization', `Bearer ${jwt}`)

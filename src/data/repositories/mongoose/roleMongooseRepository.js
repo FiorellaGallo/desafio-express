@@ -1,4 +1,4 @@
-import roleSchema from '../../model/role.model.js'
+import roleSchema from '../../model/role.model.js';
 import Role from '../../../domain/entities/role.js';
 
 class RoleMongooseRepository{
@@ -7,7 +7,7 @@ class RoleMongooseRepository{
 
     const { limit, page } = criteria;
     const roleDocuments = await roleSchema.paginate({}, { limit, page });
-    const { docs, ...pagination} = roleDocuments
+    const { docs, ...pagination} = roleDocuments;
 
     const roles = docs.map(document => new Role (
        document._id,
@@ -16,7 +16,7 @@ class RoleMongooseRepository{
     ));
 
     return {roles,pagination};
-  }
+  };
 
   async getOne(id){
 
@@ -24,14 +24,14 @@ class RoleMongooseRepository{
     if(!roleDocument)
     {
       throw new Error('Role dont exist.');
-    }
+    };
 
     return new Role ({
         id: roleDocument?._id,
         name: roleDocument?.name,
         permissions: roleDocument?.permissions
-    })
-  }
+    });
+  };
 
   async create(data){
 
@@ -41,8 +41,8 @@ class RoleMongooseRepository{
         id: roleDocument._id,
         name: roleDocument.name,
         permissions: roleDocument.permissions
-    })
-  }
+    });
+  };
 
   async updateOne(id, data){ 
 
@@ -51,18 +51,18 @@ class RoleMongooseRepository{
     if(!roleDocument)
     {
       throw new Error('Role dont exist.');
-    }
+    };
 
     return new Role ({
         id: roleDocument._id,
         name: roleDocument.name,
         permissions: roleDocument.permissions
-    })
-  }
+    });
+  };
 
   async deleteOne(id){
     return roleSchema.deleteOne({ _id: id });
-  }
-}
+  };
+};
 
 export default RoleMongooseRepository;

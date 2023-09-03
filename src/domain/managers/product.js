@@ -1,18 +1,18 @@
 
-import container from "../../container.js";
+import container from '../../container.js';
 
 class ProductManager {
   
   constructor() {
     
     this.productRepository = container.resolve('ProductRepository');
-  }
-
+  };
 
   async getProducts(type,sortOrder,limit, stock) {
-    const products = await this.productRepository.find(type,sortOrder,limit,stock)
+    const products = await this.productRepository.find(type,sortOrder,limit,stock);
+
     return  products;
-  }
+  };
 
   async addProduct(newProduct) {
    
@@ -49,28 +49,34 @@ class ProductManager {
   async getProductById(idProduct) {
    
     return this.productRepository.getProductById(idProduct)
-  }
-//se modificaron ambos enpoints 
+  };
+
   async updateProduct(id, productChange, isAdmin) {
-    const product = await this.productRepository.getProductById(id)
+
+    const product = await this.productRepository.getProductById(id);
     const emailOwner = productChange.owner;
+
     if (emailOwner == product.owner || isAdmin == true) {
+
       return await this.productRepository.updateProduct(id,productChange)  
-    }
-    return new Error ("You do not have permissions to modify the product")
+    };
+
+    return new Error ("You do not have permissions to modify the product");
     
-   
-  }
+  };
 
   async deleteProduct(id, owner, isAdmin) {
     const product = await this.productRepository.getProductById(id)
     const emailOwner = owner;
+
     if (emailOwner == product.owner || isAdmin == true) {
-      return await this.productRepository.deleteProduct(id); 
-    }
-    return new Error ("You do not have permissions to delete the product")
+
+      return await this.productRepository.deleteProduct(id) 
+    };
+
+    return new Error ("You do not have permissions to delete the product");
    
-  }
-}
+  };
+};
 
 export default ProductManager;

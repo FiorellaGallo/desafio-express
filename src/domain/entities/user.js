@@ -1,4 +1,3 @@
-
 class User
 {
   constructor(props)
@@ -13,7 +12,8 @@ class User
       this.role = props.role;
       this.isAdmin = props.isAdmin;
       this.documents = props.documents;
-  }
-}
+      this.lastConnection = props.lastConnection;
+  };
+};
 
 export default User;

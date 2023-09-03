@@ -1,14 +1,12 @@
 import { cartModel } from '../../model/cart.model.js';
 import Carts from '../../../domain/entities/carts.js';
-import { loggers } from 'winston';
+
 
 class CartMongooseRepository {
 
     async createCart(cart) {
-        console.log( 'este es el carrito',cart);
         const document = await cartModel.create({ products: cart });
-        console.log(document);
-        
+       
         return new Carts({
             id: document._id,
             products: document.products.map(product => ({
@@ -16,13 +14,12 @@ class CartMongooseRepository {
                 quantity: product.quantity
             })),
         });
-    }
+    };
 
     async findCartById(id) {
-        const document = await cartModel.findOne({ _id: id }).populate("products._id");
+        const document = await cartModel.findOne({ _id: id }).populate('products._id');
 
         if (!document) return null;
-        console.log(document);
 
         return new Carts({
             id: document._id,
@@ -32,7 +29,7 @@ class CartMongooseRepository {
             })),
 
         });
-    }
+    };
 
     async updateCart(idCart, idProduct) {
         let document = await cartModel.findOneAndUpdate(
@@ -47,7 +44,7 @@ class CartMongooseRepository {
                 { $push: { products: { _id: idProduct, quantity: 1 } } },
                 { new: true }
             );
-        }
+        };
 
         if (!document) return null;
 
@@ -59,7 +56,7 @@ class CartMongooseRepository {
             })),
 
         });
-    }
+    };
 
     async deleteProduct(cid, pid) {
         const document = await cartModel.findOneAndUpdate(

@@ -40,6 +40,7 @@ const prodLogger = winston.createLogger({
 })
 
 export const addLogger = (req,res,next)=>{
+    console.log('addLogger');
     req.devLogger = devLogger;
     req.prodLogger = prodLogger;
     next()
