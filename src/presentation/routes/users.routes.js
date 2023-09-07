@@ -11,7 +11,7 @@ userRouter.get('/:id', getOne);
 userRouter.post('/', auth, save);
 userRouter.put('/:id', update);
 userRouter.delete('/:id', deleteOne);
-userRouter.post('/premium/:iud',updateRol);
+userRouter.post('/premium/:id',updateRol);
 userRouter.post('/:id/documents', uploader.fields([
     {name:'products',maxCount:5},
     {name:'profiles',maxCount:2},

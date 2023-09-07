@@ -20,8 +20,7 @@ describe('Testing Auth Endpoints Success', ()=>{
         this.app = app;
         this.db = db;
         this.payload = {};
-        const res = await this.requester.post('/api/sessions/login').send({ email:'probando11234@prueba.com',password:'12345678'});
-        //console.log(res.body);
+        const res = await this.requester.post('/api/sessions/login').send({ email:'charo@prueba.com',password:'12345678'});
        this.jwt = res.body.accessToken;
        
        
@@ -30,7 +29,7 @@ describe('Testing Auth Endpoints Success', ()=>{
        //await this.db.drop();
         await this.db.close();
         this.requester.app.close(()=>{
-            console.log('Close conection');
+            req.prodLogger.info('Close conection');
         });
 
     });
@@ -133,7 +132,7 @@ describe('Testing Auth Endpoints Success', ()=>{
         .delete(`/api/products/delete/${payload.id}`)
         .set('Authorization', `Bearer ${this.jwt}`)
         .then(result =>{
-            console.log(result);
+            
             expect(result.status).to.be.equals(200);
             expect(result.text).to.be.equals('Delete product');
            

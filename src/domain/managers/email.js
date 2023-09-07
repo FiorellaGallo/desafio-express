@@ -25,7 +25,7 @@ class EmailManager{
         const template = Handlebars.compile(source);
         const accessToken = await generateToken({email});
         const html = template({
-            userName: 'Fiorella',//VER ESTO
+            userName: email,
             token: accessToken
 
         });

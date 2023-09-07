@@ -89,7 +89,7 @@
     event.preventDefault()
 
     const id = document.getElementById('id').value
-    console.log(id)
+    req.prodLogger.info(id)
     socket.emit('delete', Number(id))
 
 

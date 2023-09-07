@@ -1,4 +1,5 @@
 import ProductManager from '../../domain/managers/product.js';
+import config from '../../config/index.js';
 
 export const getAllProducts =('/',async (req, res) => {
   const productManager = new ProductManager();
@@ -35,7 +36,7 @@ export const getOneById =('/:pid',async (req, res) => {
 
 export const uploaderProduct =('/add',async (req, res) => {
       //Los datos del producto fueron pasados por form-data.
-  const { email } = req.user; // destructurin , obtengo el email del objeto req.user que proviene del middleware de auth
+  const { email } = req.user; 
   const productManager = new ProductManager();
   try {
     if (!req.file) {
@@ -45,10 +46,10 @@ export const uploaderProduct =('/add',async (req, res) => {
       }
     const data = req.body;
     if (!data) return res.status(404).send('No product');
-    const img = `http://localhost:8084/${req.file.path.replace('public/','')}`;
+    const img = `http://${config.imageUrl}/${req.file.path.replace('public/','')}`;
 
     data.thumbnail = img;
-    data.owner = email; // guardo en data ( en la propiedad owner) el email obtenido del objeto req.user
+    data.owner = email; 
     const product = await productManager.addProduct(data);
     req.prodLogger.info(product);
     res.send(product);
@@ -60,11 +61,10 @@ export const uploaderProduct =('/add',async (req, res) => {
 
 export const updateOneProduct =('/update/:pid', async (req, res) => {
   const productManager = new ProductManager();
-  const { email, isAdmin } = req.user; //además traemos el isAdmin para trabajar luego en el manager con las validaciones
+  const { email, isAdmin } = req.user; 
   const id = String(req.params.pid);
   const data = req.body;
-  data.owner = email; //volvemos atraer el email del objeto req.user. Email lo guardamos dentro de data
-
+  data.owner = email; 
   const product = await productManager.updateProduct(id, data, isAdmin);
   if (!data) return res.status(404).send('No product');
   req.prodLogger.info(product);

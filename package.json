@@ -4,7 +4,8 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "nodemon",
-    "test": "mocha ./src/tests/product.test.js"
+    "test": "mocha ./src/tests/user.test.js ",
+    "command": "node src/command.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.4",
     "randomstring": "^1.3.0",
+    "shelljs": "^0.8.5",
     "socket.io": "^4.6.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",

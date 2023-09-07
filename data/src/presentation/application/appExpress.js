@@ -60,24 +60,24 @@ class AppExpress{
 
     listen(){
         const httpServer = this.app.listen(config.port,()=>{
-            console.log("Server listening...");
+            req.prodLogger.info("Server listening...");
         })
         const productManager = new ProductManager();
         const socketServer = new Server(httpServer);
         socketServer.on('connection', socket =>
         {
-            console.log('Nuevo cliente conectado');
+            req.prodLogger.info('Nuevo cliente conectado');
 
             socket.on('add', async(data) => {
-                //await productManager.loadData()
+                
                 await productManager.addProduct(data)
                 socket.emit('newList',await productManager.getProducts())
             });
 
             socket.on('delete', async(data) => {
-                //await productManager.loadData()
+                
                 await productManager.deleteProduct(data)
-                console.log(data);
+                req.prodLogger.info(data);
                 socket.emit('deleteProduct',await productManager.getProducts(null,null,10))
             });
         })
@@ -104,7 +104,7 @@ export default AppExpress;
 
 
 
-//mongoose.connect( config.dbUri).then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
+
 
 
 

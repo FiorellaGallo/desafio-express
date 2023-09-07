@@ -78,14 +78,14 @@ class CartMongooseRepository {
     };
 
     async deleteAllProducts(cid) {
-        console.log(cid);
+        
         const document = await cartModel.findOneAndUpdate(
             { _id: cid },
             { $pull: { products: {} } },
             { new: true }
         );
         if (!document) return null;
-            console.log(document);
+           
         return new Carts({
             id: document._id,
             products: document.products.map(product => ({

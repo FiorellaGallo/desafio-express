@@ -16,7 +16,7 @@ export const createCart=("/", async (req, res) => {
   };
    
   const existProducts = [];
-    // Verificar si son productos válidos
+    
   for (const product of products) {
     const existProduct = await productManager.getProductById(String(product._id));
      
@@ -24,7 +24,7 @@ export const createCart=("/", async (req, res) => {
     else return res.status(404).send(`Product no exist id: ${product._id}`);
     }
     
-    // Genera un carrito con los productos recibidos
+    
     const newCart = await cartManager.addCart(existProducts);
     req.prodLogger.info(newCart);
     res.status(202).send({newCart,message:'Cart created successfully'});
@@ -141,13 +141,13 @@ export const purchase = ('/:cid/purchase', async (req,res) => {
 
   for (const cartProduct of cart.products){
     
+    
     const product = await productManager.getProductById(cartProduct.product._id.toString());
     
     if (product.stock >= cartProduct.quantity){
       const newStock = product.stock - cartProduct.quantity;
       req.prodLogger.info(newStock)
       await productManager.updateProduct(product._id, {stock : newStock},true);
-      //req.prodLogger.info(pepe)
       amount += product.price * cartProduct.quantity;
       await cartManager.deleteOneProduct(cid,cartProduct.product._id.toString());
      

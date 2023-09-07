@@ -1,0 +1,69 @@
+paths:
+  /api/email/:
+    post:
+      summary: Enviar correo electrónico de restablecimiento de contraseña
+      tags: 
+        - Email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Dirección de correo electrónico del usuario
+      responses:
+        '200':
+          description: Correo electrónico de restablecimiento de contraseña enviado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la respuesta
+        '404':
+          description: Correo electrónico no encontrado
+        '500':
+          description: Error interno del servidor
+  /api/email/changeUserPassword:
+    post:
+      summary: Cambiar la contraseña de un usuario
+      tags: 
+        - Email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: Nueva contraseña del usuario
+                confirmPassword:
+                  type: string
+                  description: Confirmación de la nueva contraseña
+      responses:
+        '200':
+          description: Contraseña de usuario cambiada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la respuesta
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+        '400':
+          description: Contraseñas diferentes
+        '404':
+          description: Correo electrónico no encontrado
+        '500':
+          description: Error interno del servidor

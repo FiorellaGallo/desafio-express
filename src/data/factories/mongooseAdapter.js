@@ -17,7 +17,7 @@ class MongooseAdapter
     }
     async drop()
     {
-      console.log(this.connection.connection.db);
+      req.prodLogger.info(this.connection.connection.db);
       await this.connection.connection.db.dropDatabase();
       
     }

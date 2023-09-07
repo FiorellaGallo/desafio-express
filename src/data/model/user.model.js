@@ -16,7 +16,7 @@ const UserSchema = new Schema({
         name:{type:Schema.Types.String},
         reference:{type:Schema.Types.String}
     }],
-    lastConnection:{ type: Schema.Types.Date, default:Date.now}// VER ESTO ..AUN NO LO TERMINE
+    lastConnection:{ type: Schema.Types.Date, default:Date.now()}
     
 
 });

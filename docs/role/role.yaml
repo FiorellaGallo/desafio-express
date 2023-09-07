@@ -1,0 +1,198 @@
+paths:
+  /api/roles/:
+    get:
+      security:
+        - BearerAuth: []
+      summary: Obtener lista de roles
+      tags: 
+        - Role
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+          description: Número máximo de roles a devolver
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+          description: Número de página de resultados
+      responses:
+        '200':
+          description: Lista de roles obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la respuesta
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Role'
+                    description: Lista de roles
+        '500':
+          description: Error interno del servidor
+    post:
+      security:
+        - BearerAuth: []
+      summary: Crear un nuevo rol
+      tags: 
+        - Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                $ref: '#components/schemas/Role'
+              description: Datos del nuevo rol
+      responses:
+        '201':
+          description: Rol creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la respuesta
+                  role:
+                    $ref: '#components/schemas/Role'
+                    description: Rol creado
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+        '500':
+          description: Error interno del servidor
+  /api/roles/{id}:
+    get:
+      security:
+        - BearerAuth: []
+      summary: Obtener un rol por su ID
+      tags: 
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del rol que se desea obtener
+      responses:
+        '200':
+          description: Rol obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la respuesta
+                  role:
+                    $ref: '#components/schemas/Role'
+                    description: Rol obtenido
+        '404':
+          description: Rol no encontrado
+        '500':
+          description: Error interno del servidor
+    put:
+      security:
+        - BearerAuth: []
+      summary: Actualizar un rol por su ID
+      tags: 
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del rol que se desea actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                $ref: '#components/schemas/Role'
+              description: Datos de actualización del rol
+      responses:
+        '200':
+        description: Rol actualizado exitosamente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type: string
+                description: Estado de la respuesta
+              result:
+                $ref: '#components/schemas/Role'
+                description: Rol actualizado
+              message:
+                type: string
+                description: Mensaje de éxito
+        '404':
+          description: Rol no encontrado
+        '500':
+          description: Error interno del servidor
+    delete:
+      security:
+        - BearerAuth: []
+      summary: Eliminar un rol por su ID
+      tags: 
+        - Role
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del rol que se desea eliminar
+      responses:
+        '204':
+          description: Rol eliminado exitosamente
+        '404':
+          description: Rol no encontrado
+        '500':
+          description: Error interno del servidor
+
+
+
+
+
+
+
+    
+components:
+  schemas:
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del rol
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Lista de permisos asociados al rol
+      required:
+        - name
+      example:
+        name: Premium
+        permissions: ["postProduct"]        
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+        

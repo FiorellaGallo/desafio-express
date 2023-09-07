@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config(); // Need before get config
 
 import mongoose from 'mongoose';
-import AddUser from './presentation/commands/AddUser.js';
+import AddUser from '../src/presentation/commander/addUser.js';
 
 void (async() =>
 {
@@ -23,7 +23,7 @@ void (async() =>
   }
   catch (error)
   {
-      console.log(error);
+    console.log(error);
       exit();
   }
 })();

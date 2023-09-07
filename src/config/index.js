@@ -6,7 +6,8 @@ const config = {
     privateKey: process.env.PRIVATE_KEY,
     dbType:process.env.DB,
     host:process.env.SMTP_HOST,
-    portHost:process.env.SMTP_PORT
+    portHost:process.env.SMTP_PORT,
+    imageUrl:process.env.IMAGE_URL
     
 };
 

@@ -116,7 +116,7 @@ export default AppExpress;
 
 
 
-//mongoose.connect( config.dbUri).then(()=>console.log('se conecto a la db')).catch((error)=>console.log(error))
+
 
 
 

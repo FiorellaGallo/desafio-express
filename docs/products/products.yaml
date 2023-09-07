@@ -3,10 +3,10 @@ paths:
     get:
       summary: Obtiene todos los productos
       tags: 
-        - products
+        - Products
       responses:
         '200':
-          description: Los productos fueron obtenidos satifactoriamnete en la base de datos
+          description: Los productos fueron obtenidos satifactoriamente en la base de datos
           content:
             application/json:
               schema:
@@ -19,7 +19,7 @@ paths:
     get:
       summary: Obtiene los productos por su id
       tags: 
-        - products
+        - Products
       parameters:
       - name: pid
         in: path
@@ -44,7 +44,7 @@ paths:
         - BearerAuth: []
       summary: Creación de un producto
       tags: 
-        - products
+        - Products
       requestBody:
         description: Crear nuevo producto
         content:
@@ -78,7 +78,7 @@ paths:
         - BearerAuth: []
       summary: Modificación de un producto que traemos por el id
       tags: 
-        - products
+        - Products
       requestBody:
         description: Modifica el producto
         content:
@@ -105,7 +105,7 @@ paths:
         - BearerAuth: []
       summary: Elimina un producto por el id
       tags: 
-        - products
+        - Products
       parameters:
       - name: pid
         in: path

@@ -19,7 +19,7 @@ router.get('/', async(req, res)=>{
 
 router.get('/realtimeproducts',async (req,res)=>{
     const products = await productManager.find(null,null,10);
-    console.log(products);
+    req.prodLogger.info(products);
     const objetoParaHandlebars = {
         elementos: products   
     }

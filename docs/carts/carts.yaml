@@ -3,7 +3,7 @@ paths:
     post:
       summary: Crea un carrito 
       tags: 
-        - carts
+        - Carts
       requestBody:
         description: Datos para crear el carrito
         required: false
@@ -38,7 +38,7 @@ paths:
     get: 
       summary: Obtiene un carrito por su id
       tags: 
-        - carts
+        - Carts
       parameters:
       - name: cid
         in: path
@@ -66,7 +66,7 @@ paths:
         - BearerAuth: []
       summary: Actualizar los productos de un carrito que traemos por el id
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -99,7 +99,7 @@ paths:
     delete:
       summary: Elimina un producto del carrito
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: :pid
           in: path
@@ -130,7 +130,7 @@ paths:
     delete:
       summary: Elimina todos los productos del carrito
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: id
           in: path
@@ -157,7 +157,7 @@ paths:
         - BearerAuth: []
       summary: Actualizar un carrito que traemos por el id
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: idCart
           in: path
@@ -195,7 +195,7 @@ paths:
     put:
       summary: Actualizar el quantity de un producto del carrito que traemos por id
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: cartId
           in: path
@@ -239,7 +239,7 @@ paths:
         - BearerAuth: []
       summary: Genera ticket de compra
       tags: 
-        - carts
+        - Carts
       parameters:
         - name: cid
           in: path

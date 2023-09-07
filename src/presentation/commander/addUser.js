@@ -1,5 +1,5 @@
 import {Command} from 'commander';
-import SessionManager from '../../domain/managers/user';
+import SessionManager from '../../domain/managers/user.js';
 
 
 const addUserCommand = new Command('addUser');
@@ -7,7 +7,6 @@ const addUserCommand = new Command('addUser');
 addUserCommand
     .version('0.0.1')
     .description('Add User')
-    .option('-e,--email<email>','User`s  email')
     .option('-e, --email <email>', 'User`s email')
     .option('-fn, --firstName <firstName>', 'User`s first name')
     .option('-ln, --lastName <lastName>', 'User`s last name')
@@ -25,7 +24,7 @@ addUserCommand
 
     if(user)
     {
-       console.log('User created successfully');
+      console.log('User created successfully');
     }
   });
 export default addUserCommand;

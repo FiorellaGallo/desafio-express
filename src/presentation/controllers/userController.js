@@ -1,9 +1,9 @@
 import SessionManager from '../../domain/managers/user.js';
 import CartManager from '../../domain/managers/carts.js';
 import RoleManager from '../../domain/managers/role.js';
-
 import { createHash } from '../../utils/index.js';
 import EmailManager from '../../domain/managers/email.js';
+import config from '../../config/index.js';
 import cron from 'node-cron';
 
 
@@ -33,7 +33,6 @@ export const save = async (req, res, next) => {
 
     if (cartId) {
       const cart = await cartManager.getCartById(cartId);
-      console.log(req.body.cartId);
       req.body.cart = cart._id;
     };
 
@@ -114,13 +113,13 @@ export const deleteOne = async (req, res, next) => {
 
 export const updateRol = async (req, res, next) => {
   try {
-
+    const manager = new SessionManager();
     const { id } = req.params;
     const rolPremium = '64d7bf2aadfbef09839e84f6';
     const rolUser = '647fc202e1e0b1b4e346bc8b';
 
     const isPremium = req.body.premium; //premium es un flag(bandera) va a devolver true/false
-    const result = await manager.updateOne(id, { role: isPremium ? rolPremium : rolUser });//utilce un operador ternario
+    const result = await manager.updateOne(id, { role: isPremium ? rolPremium : rolUser });
     res.send({ status: 'success', message: result });
   }
   catch (e) {
@@ -141,15 +140,15 @@ export const addDocuments = async (req, res, next) => {
 
     const archive = [];
     if (profileImages) {
-      archive.push(...profileImages.map(file => { return { name: file.filename, reference: `http://localhost:8084/${file.path.replace('public/', '')}` } }));
+      archive.push(...profileImages.map(file => { return { name: file.filename, reference: `http://${config.imageUrl}/${file.path.replace('public/', '')}` } }));
     }
 
     if (productImages) {
-      archive.push(...productImages.map(file => { return { name: file.filename, reference: `http://localhost:8084/${file.path.replace('public/', '')}` } }));
+      archive.push(...productImages.map(file => { return { name: file.filename, reference: `http://${config.imageUrl}/${file.path.replace('public/', '')}` } }));
     }
 
     if (documents) {
-      archive.push(...documents.map(file => { return { name: file.filename, reference: `http://localhost:8084/${file.path.replace('public/', '')}` } }));
+      archive.push(...documents.map(file => { return { name: file.filename, reference: `http://${config.imageUrl}/${file.path.replace('public/', '')}` } }));
     }
 
     data.reference = archive;

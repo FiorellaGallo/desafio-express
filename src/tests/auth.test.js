@@ -24,7 +24,7 @@ describe('Testing Auth Endpoints Success', ()=>{
        //await this.db.drop();
         await this.db.close();
         this.requester.app.close(()=>{
-            console.log('Close conection');
+            req.prodLogger.info('Close conection');
         });
 
     });
